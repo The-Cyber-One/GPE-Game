@@ -9,6 +9,8 @@ public class GridContainter : Singleton<GridContainter>, IContainer
     [SerializeField] private BoxCollider boxCollider;
     [SerializeField] private Vector2Int gridSize;
     [SerializeField] private float gridScaleMax = 1.5f;
+    [SerializeField] GameObject backgroundSquare;
+    [SerializeField] GameObject backgroundHolder;
 
     private readonly Dictionary<Vector2Int, Interactable> _interactablePlaces = new();
     private bool[,] _gridSpaces;
@@ -38,7 +40,8 @@ public class GridContainter : Singleton<GridContainter>, IContainer
 
         if (_interactablePlaces.TryGetValue(cellPosition, out Interactable gridInteractable))
         {
-
+            cellPosition -= _gridMin;
+            //_gridSpaces[cellPosition.x, cellPosition.y] = false;
         }
     }
 
@@ -60,6 +63,12 @@ public class GridContainter : Singleton<GridContainter>, IContainer
         {
             for (int y = 0; y < gridSize.y; y++)
             {
+                //Create the background
+                GameObject newBackground = Instantiate(backgroundSquare);
+                newBackground.transform.localScale = Grid.cellSize;
+                newBackground.transform.position = (new Vector2(x, y) + _gridMin) * Grid.cellSize;
+                newBackground.transform.SetParent(backgroundHolder.transform);
+
                 _gridSpaces[x, y] = true;
             }
         }
