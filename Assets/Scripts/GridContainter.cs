@@ -66,7 +66,7 @@ public class GridContainter : Singleton<GridContainter>, IContainer
                 //Create the background
                 GameObject newBackground = Instantiate(backgroundSquare);
                 newBackground.transform.localScale = Grid.cellSize;
-                newBackground.transform.position = (new Vector2(x, y) + _gridMin) * Grid.cellSize;
+                newBackground.transform.position = (new Vector2(x, y) + _gridMin) * Grid.cellSize + new Vector2(Grid.transform.position.x, Grid.transform.position.y);
                 newBackground.transform.SetParent(backgroundHolder.transform);
 
                 _gridSpaces[x, y] = true;
