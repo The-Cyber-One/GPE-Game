@@ -11,6 +11,8 @@ public class BlockSegment : Interactable
     [SerializeField] private SpriteRenderer[] spriteRenderers;
     [SerializeField] private Vector2Int size;
 
+    [SerializeField] private GameObject waterOverlay;
+
     private bool _usingMask = false;
 
     [ContextMenu(nameof(FindSprites))]
@@ -21,6 +23,7 @@ public class BlockSegment : Interactable
 
     public override void StartDrag(Vector2 startPressPosition)
     {
+        transform.localScale = Vector2.one;
         foreach (var sprite in spriteRenderers)
         {
             sprite.sortingLayerName = "Foreground";
@@ -56,12 +59,14 @@ public class BlockSegment : Interactable
             UpdateMask(true);
             RemoveFromContainer();
             AddToContainer(GridContainter.Instance, GridContainter.Instance.Grid.CellToWorld((Vector3Int)cellPosition));
+            waterOverlay.SetActive(true);
         }
         else
         {
             // Return segment to options
             UpdateMask(false);
-            transform.position = Vector2.zero;
+            transform.position = BlockSpawnManager.Instance.blockAndSpawn[this];
+            transform.localScale = BlockSpawnManager.Instance.spawnSize;
         }
 
         foreach (var sprite in spriteRenderers)

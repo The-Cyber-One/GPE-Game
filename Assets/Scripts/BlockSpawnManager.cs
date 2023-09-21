@@ -2,56 +2,54 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlockSpawnManager : MonoBehaviour
+public class BlockSpawnManager : Singleton<BlockSpawnManager>, IContainer
 {
 
     public GameObject[] possibleBlocks;
     List<Transform> possibleSpawnPoints;
-    List<Transform> spawnPointsTaken;
+    public Dictionary<Interactable, Vector2> blockAndSpawn = new Dictionary<Interactable, Vector2>();
 
-    int spawnsAvailable;
+    //Don't adjust this!
+    [HideInInspector]
+    public Vector2 spawnSize = new Vector2(0.35f, 0.35f);
+
+    public Transform Content => transform;
 
     // Start is called before the first frame update
     void Start()
     {
-        possibleBlocks = Resources.LoadAll<GameObject>("Prefabs/Blocks");
-
+        possibleBlocks = Resources.LoadAll<GameObject>("Blocks");
         possibleSpawnPoints = new List<Transform>();
+        blockAndSpawn = new Dictionary<Interactable, Vector2>();
+
         for (int i = 0; i < transform.childCount; i++)
         {
             possibleSpawnPoints.Add(transform.GetChild(i));
         }
 
-        spawnsAvailable = possibleSpawnPoints.Count;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (spawnsAvailable > 0)
+        foreach (Transform spawn in possibleSpawnPoints)
         {
-            SpawnBlock();
-            spawnsAvailable--;
+            SpawnBlock(spawn.position);
+            spawn.gameObject.SetActive(false);
         }
-        //spawnsAvailable = possibleSpawnPoints.Count;
     }
 
-    public void SpawnNewBlock()
-    {
-        spawnsAvailable++;
-    }
-
-    void SpawnBlock()
+    void SpawnBlock(Vector2 spawn)
     {
         GameObject newBlock = Instantiate(possibleBlocks[Random.Range(0, possibleBlocks.Length - 1)]);
-        foreach(Transform spawn in possibleSpawnPoints)
-        {
-            if(spawn.gameObject.activeSelf)
-            {
-                newBlock.transform.position = spawn.transform.position;
-                spawn.gameObject.SetActive(false);
-                break;
-            }
-        }
+        newBlock.GetComponent<BlockSegment>().AddToContainer(this, spawn);
+
+    }
+
+    public void AddInteractable(Interactable interactable, Vector2 worldPosition)
+    {
+        interactable.transform.position = worldPosition;
+        interactable.transform.localScale = spawnSize;
+        blockAndSpawn.Add(interactable, worldPosition);
+    }
+
+    public void RemoveInteractable(Interactable interactable)
+    {
+        SpawnBlock(blockAndSpawn[interactable]);
     }
 }
