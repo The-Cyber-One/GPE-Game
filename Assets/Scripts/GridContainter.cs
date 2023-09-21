@@ -4,13 +4,12 @@ using UnityEngine;
 public class GridContainter : Singleton<GridContainter>, IContainer
 {
     public Grid Grid;
+    public Vector2Int gridSize;
 
-    [SerializeField] public Vector2Int gridSize;
-    [SerializeField] private float gridScaleMax = 1.5f;
+    [HideInInspector] public Vector2Int GridMin, GridMax;
 
     private readonly Dictionary<Vector2Int, Interactable> _interactablePlaces = new();
     private bool[,] _gridSpaces;
-    public Vector2Int _gridMin, _gridMax;
     private float _gridScaleMin;
     private Vector2 _previousPressPoint;
 
@@ -45,8 +44,8 @@ public class GridContainter : Singleton<GridContainter>, IContainer
     public void SetupGridSpaces()
     {
         _gridSpaces = new bool[gridSize.x, gridSize.y];
-        _gridMin = -new Vector2Int((gridSize.x - 1) / 2, (gridSize.y - 1) / 2);
-        _gridMax = new Vector2Int(gridSize.x / 2, gridSize.y / 2);
+        GridMin = -new Vector2Int((gridSize.x - 1) / 2, (gridSize.y - 1) / 2);
+        GridMax = new Vector2Int(gridSize.x / 2, gridSize.y / 2);
 
         for (int x = 0; x < gridSize.x; x++)
         {
@@ -60,7 +59,7 @@ public class GridContainter : Singleton<GridContainter>, IContainer
     public Vector2Int GetCellPosition(Vector2 worldPosition)
     {
         Vector2Int cellPosition = (Vector2Int)Grid.WorldToCell(worldPosition);
-        cellPosition.Clamp(_gridMin, _gridMax);
+        cellPosition.Clamp(GridMin, GridMax);
         return cellPosition;
     }
 
@@ -70,8 +69,8 @@ public class GridContainter : Singleton<GridContainter>, IContainer
     public bool IsInGrid(Vector2 worldPosition)
     {
         Vector2Int cellPosition = (Vector2Int)Grid.WorldToCell(worldPosition);
-        return cellPosition.x >= _gridMin.x && cellPosition.x <= _gridMax.x
-            && cellPosition.y >= _gridMin.y && cellPosition.y <= _gridMax.y;
+        return cellPosition.x >= GridMin.x && cellPosition.x <= GridMax.x
+            && cellPosition.y >= GridMin.y && cellPosition.y <= GridMax.y;
     }
 
     public bool TryGetAvailableGridPosition(out Vector2 gridPosition, Vector2 worldPosition)
@@ -79,8 +78,8 @@ public class GridContainter : Singleton<GridContainter>, IContainer
         gridPosition = Vector2.zero;
 
         Vector2Int cellPosition = (Vector2Int)Grid.WorldToCell(worldPosition);
-        cellPosition.Clamp(_gridMin, _gridMax);
-        Vector2Int index = cellPosition - _gridMin;
+        cellPosition.Clamp(GridMin, GridMax);
+        Vector2Int index = cellPosition - GridMin;
 
         if (_gridSpaces[index.x, index.y])
         {
@@ -92,7 +91,7 @@ public class GridContainter : Singleton<GridContainter>, IContainer
 
         if (TryFindClosestGridSpace(out Vector2Int closestSpace, index, largestDistance * 2))
         {
-            gridPosition = Grid.CellToWorld((Vector3Int)(closestSpace + _gridMin));
+            gridPosition = Grid.CellToWorld((Vector3Int)(closestSpace + GridMin));
             return true;
         }
 
@@ -149,7 +148,7 @@ public class GridContainter : Singleton<GridContainter>, IContainer
             {
                 if (_gridSpaces[x, y])
                 {
-                    Gizmos.DrawSphere(Grid.CellToWorld(new Vector3Int(x + _gridMin.x, y + _gridMin.y, 0)), 0.1f);
+                    Gizmos.DrawSphere(Grid.CellToWorld(new Vector3Int(x + GridMin.x, y + GridMin.y, 0)), 0.1f);
                 }
             }
         }

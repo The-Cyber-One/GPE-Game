@@ -18,10 +18,10 @@ public class ScoreManager : Singleton<ScoreManager>
     [ContextMenu(nameof(UpdateUI))]
     public void UpdateUI()
     {
-        scoreText.SetText($"{_score}");
+        scoreText.SetText($"<b>Current</b>\n{_score}");
         multiplierText.SetText($"{_multiplier:0.0}x");
-        islandScoreText.SetText($"{Mathf.CeilToInt(_score * _multiplier)}");
-        totalScoreText.SetText($"<b><color=#888>Total score</color></b></n>{_totalScore}");
+        islandScoreText.SetText($"<b>Island</b>{Mathf.CeilToInt(_score * _multiplier)}");
+        totalScoreText.SetText($"<b><color=#888>Total score</color></b>\n{_totalScore}");
     }
 
     [ContextMenu(nameof(SaveIslandScore))]

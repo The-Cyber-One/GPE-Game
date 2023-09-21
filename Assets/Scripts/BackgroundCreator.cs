@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 public class BackgroundCreator : MonoBehaviour
 {
     [SerializeField] private Tilemap tilemap;
-    [SerializeField] private TileBase waterTiles;
+    [SerializeField] private TileBase[] waterTiles;
 
     private void Start()
     {
@@ -15,7 +15,8 @@ public class BackgroundCreator : MonoBehaviour
             for (int y = 0; y < GridContainter.Instance.gridSize.y; y++)
             {
                 //Create the background
-                tilemap.SetTile(new Vector3Int(x, y), waterTiles);
+                Vector3Int position = new(x + GridContainter.Instance.GridMin.x, y + GridContainter.Instance.GridMin.y);
+                tilemap.SetTile(position, waterTiles[Random.Range(0, waterTiles.Length)]);
             }
         }
     }
