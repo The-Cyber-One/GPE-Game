@@ -219,7 +219,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 136fa29ea08d8f046a50a8cd80bd5948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 1, y: 3}
+  Size: {x: 1, y: 3}
+  spriteRenderers:
+  - {fileID: 8552086464056424078}
+  - {fileID: 596472671651505725}
+  - {fileID: 3195082941191166221}
+  - {fileID: 115942825823586156}
+  - {fileID: 7357847992386549628}
+  - {fileID: 8960947074364222790}
+  - {fileID: 3252255151722022418}
+  - {fileID: 6897744560935622616}
+  - {fileID: 7703499462795879770}
+  blockPositions:
+  - {x: 0, y: 0}
+  - {x: 0, y: 1}
+  - {x: 0, y: 2}
 --- !u!65 &894396062431548022
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -228,7 +242,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 767291217472273308}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 4, z: 1}
