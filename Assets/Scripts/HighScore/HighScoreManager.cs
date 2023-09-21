@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine.Events;
 using System;
 
-public class ScoreManager : MonoBehaviour
+public class HighScoreManager : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI inputScore;
@@ -16,7 +16,11 @@ public class ScoreManager : MonoBehaviour
     {
         sumbitScoreEvent.Invoke(inputName.text, int.Parse(removeWord(inputScore.text, "Score:")));
     }
-
+    public void HasPlayedLogic(string username)
+    {
+        inputName.interactable = false;
+        inputName.text = username;
+    }
     public static String removeWord(String str, String word)
     {
 

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Dan.Main;
+using UnityEngine.Events;
+
 public class HighScore : MonoBehaviour
 {
     [SerializeField]
@@ -11,7 +13,8 @@ public class HighScore : MonoBehaviour
     private List<TextMeshProUGUI> scores;
     [SerializeField]
     private TextMeshProUGUI currentUserHighScore;
-
+    [SerializeField]
+    public UnityEvent<string> hasPlayedEvent;
     private string publicLeaderboardKey = "a56edf94067a1ec620d28c02d6048cc682b8a0c0d26c7ed3d40a87c8b4922450";
 
     private void Start()
@@ -34,6 +37,7 @@ public class HighScore : MonoBehaviour
             {
                 if (msg[i].IsMine())
                 {
+                    hasPlayedEvent.Invoke(msg[i].Username);
                     currentUserHighScore.text = "Your Highscore:" + msg[i].Score.ToString();
                 }
             }
@@ -47,5 +51,9 @@ public class HighScore : MonoBehaviour
         {
             GetLeaderBoard();
         }));
+    }
+
+    public void HasPlayedGame()
+    {
     }
 }
