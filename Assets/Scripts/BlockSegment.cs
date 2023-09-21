@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BlockSegment : Interactable
 {
+    [SerializeField] Vector2Int size;
 
     public override void Drag(Vector2 pressPosition)
     {
@@ -16,5 +17,10 @@ public class BlockSegment : Interactable
         {
             AddToContainer(GridContainter.Instance, pressPosition + new Vector2(0.5f, 0.5f));
         }
+    }
+
+    private bool HasValidPosition()
+    {
+        return true;
     }
 }
