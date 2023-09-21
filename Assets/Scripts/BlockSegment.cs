@@ -4,10 +4,12 @@ using UnityEngine.Serialization;
 
 public class BlockSegment : Interactable
 {
-    [FormerlySerializedAs("size")] public Vector2Int Size;
+    [FormerlySerializedAs("blockPositions")] public Vector2Int[] BlockPositions;
+    [field:SerializeField]
+    public int PointAmount { private set; get; }
 
     [SerializeField] private SpriteRenderer[] spriteRenderers;
-    [SerializeField] private Vector2Int[] blockPositions;
+    [SerializeField] private Vector2Int size;
 
     private bool _usingMask = false;
 
@@ -32,7 +34,7 @@ public class BlockSegment : Interactable
         {
             UpdateMask(true);
 
-            Vector2Int cellPosition = GridContainter.Instance.FitToGrid(position, Size);
+            Vector2Int cellPosition = GridContainter.Instance.FitToGrid(position, size);
             transform.position = GridContainter.Instance.Grid.CellToWorld((Vector3Int)cellPosition);
         }
         else
@@ -45,10 +47,10 @@ public class BlockSegment : Interactable
     public override void StopDrag(Vector2 pressPosition)
     {
         Vector2 position = pressPosition + new Vector2(0.5f, 0.5f);
-        Vector2Int cellPosition = GridContainter.Instance.FitToGrid(position, Size);
+        Vector2Int cellPosition = GridContainter.Instance.FitToGrid(position, size);
 
         // Check each collider with grid
-        if (CameraManager.Instance.TryHitContainer(out _) && !blockPositions.Any(blockPosition => !GridContainter.Instance.GridSpaces(cellPosition.x + blockPosition.x, cellPosition.y + blockPosition.y)))
+        if (CameraManager.Instance.TryHitContainer(out _) && !BlockPositions.Any(blockPosition => !GridContainter.Instance.GridSpaces(cellPosition.x + blockPosition.x, cellPosition.y + blockPosition.y)))
         {
             // Place segment
             UpdateMask(true);

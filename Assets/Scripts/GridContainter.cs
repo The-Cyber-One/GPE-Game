@@ -8,10 +8,13 @@ public class GridContainter : Singleton<GridContainter>, IContainer
     public BoxCollider BoxCollider;
     [HideInInspector] public Vector2Int GridMin, GridMax;
 
+    [SerializeField, Min(1)] private int minBonusWaitScore, maxBonusWaitScore;
+
     private readonly Dictionary<Vector2Int, Interactable> _interactablePlaces = new();
     private bool[,] _gridSpaces;
     private float _gridScaleMin;
     private Vector2 _previousPressPoint;
+    private int _bonusCurrentWaitScore, _bonusWantedWaitScore;
 
     public bool GridSpaces(int x, int y)
     {
@@ -36,13 +39,23 @@ public class GridContainter : Singleton<GridContainter>, IContainer
         switch (interactable)
         {
             case BlockSegment blockSegment:
-                for (int x = 0; x < blockSegment.Size.x; x++)
+                for (int i = 0; i < blockSegment.BlockPositions.Length; i++)
                 {
-                    for (int y = 0; y < blockSegment.Size.y; y++)
-                    {
-                        Vector2Int space = new(cellPosition.x + x - GridMin.x, cellPosition.y + y - GridMin.y);
-                        _gridSpaces[space.x, space.y] = false;
-                    }
+                    Vector2Int blockPosition = blockSegment.BlockPositions[i];
+                    Vector2Int space = new(cellPosition.x + blockPosition.x - GridMin.x, cellPosition.y + blockPosition.y - GridMin.y);
+                    _gridSpaces[space.x, space.y] = false;
+                }
+
+                // Add score
+                float filledPercentage = GetFilledSpaceAmount() / (float)_gridSpaces.Length;
+                ScoreManager.Instance.IncreaseScore(blockSegment.PointAmount, filledPercentage);
+
+                // Spawn bonus multiplier
+                _bonusCurrentWaitScore += blockSegment.PointAmount;
+
+                if (_bonusCurrentWaitScore >= _bonusWantedWaitScore)
+                {
+                    _bonusWantedWaitScore = Random.Range(minBonusWaitScore, maxBonusWaitScore);
                 }
                 break;
         }
@@ -70,6 +83,16 @@ public class GridContainter : Singleton<GridContainter>, IContainer
                 _gridSpaces[x, y] = true;
             }
         }
+    }
+
+    private int GetFilledSpaceAmount()
+    {
+        int amount = 0;
+        for (int x = 0; x < GridSize.x; x++)
+            for (int y = 0; y < GridSize.y; y++)
+                if (!_gridSpaces[x, y])
+                    amount++;
+        return amount;
     }
 
     public Vector2Int GetCellPosition(Vector2 worldPosition)
