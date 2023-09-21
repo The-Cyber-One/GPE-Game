@@ -4,14 +4,21 @@ using UnityEngine;
 public class GridContainter : Singleton<GridContainter>, IContainer
 {
     public Grid Grid;
-    public Vector2Int gridSize;
-
+    public Vector2Int GridSize;
+    public BoxCollider BoxCollider;
     [HideInInspector] public Vector2Int GridMin, GridMax;
 
     private readonly Dictionary<Vector2Int, Interactable> _interactablePlaces = new();
     private bool[,] _gridSpaces;
     private float _gridScaleMin;
     private Vector2 _previousPressPoint;
+
+    public bool GridSpaces(int x, int y)
+    {
+        x -= GridMin.x;
+        y -= GridMin.y;
+        return x >= 0 && x < GridSize.x && y >= 0 && y < GridSize.y && _gridSpaces[x, y];
+    }
 
     public Transform Content => Grid.transform;
 
@@ -20,16 +27,25 @@ public class GridContainter : Singleton<GridContainter>, IContainer
         base.Awake();
 
         if (Grid == null) Grid = GetComponent<Grid>();
-    }
-
-    private void Start()
-    {
         SetupGridSpaces();
     }
 
     public void AddInteractable(Interactable interactable, Vector2 worldPosition)
     {
         Vector2Int cellPosition = GetCellPosition(worldPosition);
+        switch (interactable)
+        {
+            case BlockSegment blockSegment:
+                for (int x = 0; x < blockSegment.Size.x; x++)
+                {
+                    for (int y = 0; y < blockSegment.Size.y; y++)
+                    {
+                        Vector2Int space = new(cellPosition.x + x - GridMin.x, cellPosition.y + y - GridMin.y);
+                        _gridSpaces[space.x, space.y] = false;
+                    }
+                }
+                break;
+        }
         interactable.transform.position = Grid.CellToWorld((Vector3Int)cellPosition);
     }
 
@@ -43,13 +59,13 @@ public class GridContainter : Singleton<GridContainter>, IContainer
     [ContextMenu(nameof(SetupGridSpaces))]
     public void SetupGridSpaces()
     {
-        _gridSpaces = new bool[gridSize.x, gridSize.y];
-        GridMin = -new Vector2Int((gridSize.x - 1) / 2, (gridSize.y - 1) / 2);
-        GridMax = new Vector2Int(gridSize.x / 2, gridSize.y / 2);
+        _gridSpaces = new bool[GridSize.x, GridSize.y];
+        GridMin = -new Vector2Int((GridSize.x - 1) / 2, (GridSize.y - 1) / 2);
+        GridMax = new Vector2Int(GridSize.x / 2, GridSize.y / 2);
 
-        for (int x = 0; x < gridSize.x; x++)
+        for (int x = 0; x < GridSize.x; x++)
         {
-            for (int y = 0; y < gridSize.y; y++)
+            for (int y = 0; y < GridSize.y; y++)
             {
                 _gridSpaces[x, y] = true;
             }
@@ -73,7 +89,22 @@ public class GridContainter : Singleton<GridContainter>, IContainer
             && cellPosition.y >= GridMin.y && cellPosition.y <= GridMax.y;
     }
 
-    public bool TryGetAvailableGridPosition(out Vector2 gridPosition, Vector2 worldPosition)
+    public bool FitsInGrid(Vector2 worldPosition, Vector2Int size)
+    {
+        Vector2Int cellPosition = (Vector2Int)Grid.WorldToCell(worldPosition);
+        return cellPosition.x >= GridMin.x && cellPosition.x <= GridMax.x - size.x
+            && cellPosition.y >= GridMin.y && cellPosition.y <= GridMax.y - size.y;
+    }
+
+    public Vector2Int FitToGrid(Vector2 worldPosition, Vector2Int size)
+    {
+        Vector2Int cellPosition = (Vector2Int)Grid.WorldToCell(worldPosition);
+        cellPosition = Vector2Int.Max(cellPosition, GridMin);
+        cellPosition = Vector2Int.Min(cellPosition, GridMax - size + Vector2Int.one);
+        return cellPosition;
+    }
+
+    public bool TryGetAvailableGridPosition(Vector2 worldPosition, out Vector2 gridPosition)
     {
         gridPosition = Vector2.zero;
 

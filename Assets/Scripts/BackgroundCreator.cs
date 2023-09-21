@@ -10,9 +10,9 @@ public class BackgroundCreator : MonoBehaviour
 
     private void Start()
     {
-        for (int x = 0; x < GridContainter.Instance.gridSize.x; x++)
+        for (int x = 0; x < GridContainter.Instance.GridSize.x; x++)
         {
-            for (int y = 0; y < GridContainter.Instance.gridSize.y; y++)
+            for (int y = 0; y < GridContainter.Instance.GridSize.y; y++)
             {
                 //Create the background
                 Vector3Int position = new(x + GridContainter.Instance.GridMin.x, y + GridContainter.Instance.GridMin.y);
