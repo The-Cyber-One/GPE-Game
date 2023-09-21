@@ -60,8 +60,7 @@ public class BlockSegment : Interactable
             RemoveFromContainer();
             AddToContainer(GridContainter.Instance, GridContainter.Instance.Grid.CellToWorld((Vector3Int)cellPosition));
             waterOverlay.SetActive(true);
-        }
-        else
+        }        else
         {
             // Return segment to options
             UpdateMask(false);
