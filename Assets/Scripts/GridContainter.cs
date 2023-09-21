@@ -1,12 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider))]
 public class GridContainter : Singleton<GridContainter>, IContainer
 {
     public Grid Grid;
 
-    [SerializeField] private BoxCollider boxCollider;
     [SerializeField] public Vector2Int gridSize;
     [SerializeField] private float gridScaleMax = 1.5f;
 
@@ -23,7 +21,6 @@ public class GridContainter : Singleton<GridContainter>, IContainer
         base.Awake();
 
         if (Grid == null) Grid = GetComponent<Grid>();
-        if (boxCollider == null) boxCollider = GetComponent<BoxCollider>();
     }
 
     private void Start()
