@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GridContainter : Singleton<GridContainter>, IContainer
@@ -9,12 +10,14 @@ public class GridContainter : Singleton<GridContainter>, IContainer
     [HideInInspector] public Vector2Int GridMin, GridMax;
 
     [SerializeField, Min(1)] private int minBonusWaitScore, maxBonusWaitScore;
+    [SerializeField] private BonusMultiplier bonusPrefab;
 
     private readonly Dictionary<Vector2Int, Interactable> _interactablePlaces = new();
     private bool[,] _gridSpaces;
     private float _gridScaleMin;
     private Vector2 _previousPressPoint;
     private int _bonusCurrentWaitScore, _bonusWantedWaitScore;
+    private BonusMultiplier _bonusInstance;
 
     public bool GridSpaces(int x, int y)
     {
@@ -44,6 +47,13 @@ public class GridContainter : Singleton<GridContainter>, IContainer
                     Vector2Int blockPosition = blockSegment.BlockPositions[i];
                     Vector2Int space = new(cellPosition.x + blockPosition.x - GridMin.x, cellPosition.y + blockPosition.y - GridMin.y);
                     _gridSpaces[space.x, space.y] = false;
+
+                    // Check if bonus was hit
+                    if (_bonusInstance != null && _bonusInstance.Position == cellPosition + blockPosition)
+                    {
+                        ScoreManager.Instance.IncreaseBonus();
+                        Destroy(_bonusInstance.gameObject);
+                    }
                 }
 
                 // Add score
@@ -53,8 +63,17 @@ public class GridContainter : Singleton<GridContainter>, IContainer
                 // Spawn bonus multiplier
                 _bonusCurrentWaitScore += blockSegment.PointAmount;
 
-                if (_bonusCurrentWaitScore >= _bonusWantedWaitScore)
+                if (_bonusCurrentWaitScore >= _bonusWantedWaitScore && _bonusInstance == null)
                 {
+                    List<Vector2Int> openSpace = new();
+                    for (int x = 0; x < GridSize.x; x++)
+                        for (int y = 0; y < GridSize.y; y++)
+                            if (_gridSpaces[x, y])
+                                openSpace.Add(new Vector2Int(x, y) + GridMin);
+
+                    Vector2Int bonusCellSpawnPoint = openSpace[Random.Range(0, openSpace.Count)];
+                    _bonusInstance = Instantiate(bonusPrefab, Grid.CellToWorld((Vector3Int)bonusCellSpawnPoint), Quaternion.identity, transform);
+                    _bonusCurrentWaitScore = 0;
                     _bonusWantedWaitScore = Random.Range(minBonusWaitScore, maxBonusWaitScore);
                 }
                 break;

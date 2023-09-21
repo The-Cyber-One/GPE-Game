@@ -39,7 +39,7 @@ public class Timer : MonoBehaviour
         if (currentTime > 0)
         {
             currentTime -= Time.deltaTime;
-            timer.text = "Time Left: " + currentTime.ToString("0.0");
+            timer.text = currentTime.ToString("0");
             float ipValue = Mathf.Lerp(1, 0, elapsedTime/setTime);
             slider.value = ipValue;
         }

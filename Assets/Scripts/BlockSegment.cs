@@ -11,7 +11,7 @@ public class BlockSegment : Interactable
     [SerializeField] private SpriteRenderer[] spriteRenderers;
     [SerializeField] private Vector2Int size;
 
-    [SerializeField] private GameObject waterOverlay;
+    [SerializeField] private GameObject waterOverlay, mistakeOverlay;
 
     private bool _usingMask = false;
 
@@ -39,10 +39,12 @@ public class BlockSegment : Interactable
 
             Vector2Int cellPosition = GridContainter.Instance.FitToGrid(position, size);
             transform.position = GridContainter.Instance.Grid.CellToWorld((Vector3Int)cellPosition);
+            mistakeOverlay.SetActive(BlockPositions.Any(blockPosition => !GridContainter.Instance.GridSpaces(cellPosition.x + blockPosition.x, cellPosition.y + blockPosition.y)));
         }
         else
         {
             UpdateMask(false);
+            mistakeOverlay.SetActive(false);
             transform.position = pressPosition;
         }
     }
