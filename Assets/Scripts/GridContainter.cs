@@ -37,12 +37,6 @@ public class GridContainter : Singleton<GridContainter>, IContainer
     {
         Vector2Int cellPosition = GetCellPosition(worldPosition);
         interactable.transform.position = Grid.CellToWorld((Vector3Int)cellPosition);
-
-        if (_interactablePlaces.TryGetValue(cellPosition, out Interactable gridInteractable))
-        {
-            cellPosition -= _gridMin;
-            //_gridSpaces[cellPosition.x, cellPosition.y] = false;
-        }
     }
 
     public void RemoveInteractable(Interactable interactable)
@@ -83,6 +77,13 @@ public class GridContainter : Singleton<GridContainter>, IContainer
 
     public Vector2 GetGridPosition(Vector2 worldPosition) =>
         Grid.CellToWorld((Vector3Int)GetCellPosition(worldPosition));
+
+    public bool IsInGrid(Vector2 worldPosition)
+    {
+        Vector2Int cellPosition = (Vector2Int)Grid.WorldToCell(worldPosition);
+        return cellPosition.x >= _gridMin.x && cellPosition.x <= _gridMax.x
+            && cellPosition.y >= _gridMin.y && cellPosition.y <= _gridMax.y;
+    }
 
     public bool TryGetAvailableGridPosition(out Vector2 gridPosition, Vector2 worldPosition)
     {
