@@ -113,6 +113,10 @@ public class GridContainter : Singleton<GridContainter>, IContainer
             Destroy(interactable.gameObject);
         }
         _interactables.Clear();
+        if (_bonusInstance != null)
+        {
+            Destroy(_bonusInstance.gameObject);
+        }
     }
 
     private int GetFilledSpaceAmount()

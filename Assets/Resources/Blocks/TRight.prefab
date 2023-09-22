@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1588040533151316742}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.875, z: 0}
+  m_LocalPosition: {x: 1, y: 0.875, z: 0}
   m_LocalScale: {x: 1, y: 3.2499948, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -110,7 +110,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2547224650026397941}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: -1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 0.3845621, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -378,6 +378,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4994939292266314485}
   - component: {fileID: 810844253499516319}
+  - component: {fileID: 3784369884664047211}
   m_Layer: 6
   m_Name: Visuals
   m_TagString: Untagged
@@ -424,6 +425,17 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!210 &3784369884664047211
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4533840377759810300}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &4585422613797177743
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,7 +497,7 @@ MonoBehaviour:
   - {fileID: 7266178674011557597}
   - {fileID: 568235306148576986}
   - {fileID: 5880495012117089548}
-  sortingGroup: {fileID: 0}
+  sortingGroup: {fileID: 3784369884664047211}
   size: {x: 2, y: 3}
   animator: {fileID: 810844253499516319}
   mistakeOverlay: {fileID: 1588040533151316742}
