@@ -11,6 +11,7 @@ public class GridContainter : Singleton<GridContainter>, IContainer
 
     [SerializeField, Min(1)] private int minBonusWaitScore, maxBonusWaitScore;
     [SerializeField] private BonusMultiplier bonusPrefab;
+    [SerializeField] Transform mask;
 
     private readonly List<Interactable> _interactables = new();
     private bool[,] _gridSpaces;
@@ -102,6 +103,10 @@ public class GridContainter : Singleton<GridContainter>, IContainer
                 _gridSpaces[x, y] = true;
             }
         }
+
+        Grid.transform.localScale = new Vector3(5f / GridSize.x, 5f / GridSize.y);
+        mask.localScale = (Vector2)GridSize;
+        BoxCollider.size = (Vector2)GridSize;
     }
 
     public void CreateIsland()
@@ -113,6 +118,10 @@ public class GridContainter : Singleton<GridContainter>, IContainer
             Destroy(interactable.gameObject);
         }
         _interactables.Clear();
+        if (_bonusInstance != null)
+        {
+            Destroy(_bonusInstance.gameObject);
+        }
     }
 
     private int GetFilledSpaceAmount()
