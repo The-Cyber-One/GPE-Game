@@ -11,7 +11,10 @@ public class GridContainter : Singleton<GridContainter>, IContainer
 
     [SerializeField, Min(1)] private int minBonusWaitScore, maxBonusWaitScore;
     [SerializeField] private BonusMultiplier bonusPrefab;
-    [SerializeField] Transform mask;
+    [SerializeField] private Transform mask;
+
+    [SerializeField] private AnimationCurve blockerCurve;
+    [SerializeField] private int maxBlockerAmount, maxBlockerIslandCount;
 
     private readonly List<Interactable> _interactables = new();
     private bool[,] _gridSpaces;
@@ -19,6 +22,7 @@ public class GridContainter : Singleton<GridContainter>, IContainer
     private Vector2 _previousPressPoint;
     private int _bonusCurrentWaitScore, _bonusWantedWaitScore;
     private BonusMultiplier _bonusInstance;
+    private int _islandCount;
 
     public bool GridSpaces(int x, int y)
     {
@@ -107,12 +111,21 @@ public class GridContainter : Singleton<GridContainter>, IContainer
         Grid.transform.localScale = new Vector3(5f / GridSize.x, 5f / GridSize.y);
         mask.localScale = (Vector2)GridSize;
         BoxCollider.size = (Vector2)GridSize;
+
+        BlockSegment blocker = Resources.Load<BlockSegment>("Blocker");
+        for (int i = 0; i < (int)(blockerCurve.Evaluate(_islandCount / (float)maxBlockerIslandCount) * maxBlockerAmount); i++)
+        {
+            Vector2 position = Grid.CellToWorld(new Vector3Int(Random.Range(GridMin.x, GridMax.x + 1), Random.Range(GridMin.y, GridMax.y + 1)));
+            BlockSegment instance = Instantiate(blocker);
+            instance.AddToContainer(this, position);
+            instance.Animator.SetTrigger("PlaceBlock");
+        }
     }
 
     public void CreateIsland()
     {
+        _islandCount++;
         ScoreManager.Instance.SaveIslandScore();
-        SetupGridSpaces();
         foreach (var interactable in _interactables)
         {
             Destroy(interactable.gameObject);
@@ -122,6 +135,7 @@ public class GridContainter : Singleton<GridContainter>, IContainer
         {
             Destroy(_bonusInstance.gameObject);
         }
+        SetupGridSpaces();
     }
 
     private int GetFilledSpaceAmount()

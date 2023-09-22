@@ -1363,7 +1363,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27.7
+  m_fontSize: 27.75
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1519,7 +1519,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36.65
+  m_fontSize: 36.7
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1928,7 +1928,7 @@ Transform:
   m_GameObject: {fileID: 828016577}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -4, z: 0}
-  m_LocalScale: {x: 5.627477, y: 2.0000002, z: 0}
+  m_LocalScale: {x: 5.6227326, y: 2.0000002, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 622122288}
@@ -2022,6 +2022,32 @@ MonoBehaviour:
   maxBonusWaitScore: 13
   bonusPrefab: {fileID: 4461159349471525645, guid: 2e71ca8a89efb2a4da998d66a510e973, type: 3}
   mask: {fileID: 1117350558}
+  blockerCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  maxBlockerAmount: 3
+  maxBlockerIslandCount: 10
 --- !u!114 &836768374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3011,7 +3037,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27.7
+  m_fontSize: 27.75
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3212,7 +3238,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27.7
+  m_fontSize: 27.75
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3388,7 +3414,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36.65
+  m_fontSize: 36.7
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3820,7 +3846,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36.65
+  m_fontSize: 36.7
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1

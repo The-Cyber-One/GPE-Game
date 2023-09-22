@@ -11,13 +11,13 @@ public class BlockSegment : Interactable
     [FormerlySerializedAs("blockPositions")] public Vector2Int[] BlockPositions;
     [field: SerializeField]
     public int PointAmount { private set; get; }
+    public Animator Animator;
 
     [SerializeField] private BoxCollider boxCollider;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private Renderer[] renderers;
     [SerializeField] private SortingGroup sortingGroup;
     [SerializeField] private Vector2Int size;
-    [SerializeField] private Animator animator;
 
     [SerializeField] private GameObject mistakeOverlay;
 
@@ -27,8 +27,8 @@ public class BlockSegment : Interactable
     {
         if (boxCollider == null)
             boxCollider = GetComponent<BoxCollider>();
-        if (animator == null)
-            animator = GetComponentInChildren<Animator>();
+        if (Animator == null)
+            Animator = GetComponentInChildren<Animator>();
         if (sortingGroup == null)
             sortingGroup = GetComponentInChildren<SortingGroup>();
         if (audioSource == null)
@@ -81,7 +81,7 @@ public class BlockSegment : Interactable
             RemoveFromContainer();
             AddToContainer(GridContainter.Instance, GridContainter.Instance.Grid.CellToWorld((Vector3Int)cellPosition));
             boxCollider.enabled = false;
-            animator.SetTrigger("PlaceBlock");
+            Animator.SetTrigger("PlaceBlock");
             audioSource.Play();
         }
         else
