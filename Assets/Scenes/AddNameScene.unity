@@ -3777,9 +3777,10 @@ MonoBehaviour:
   - {fileID: 2001620012}
   - {fileID: 2071974774}
   - {fileID: 1926569239}
-  currentUserHighScore: {fileID: 368273191}
+  currentRankNamePlayer: {fileID: 0}
   errorText: {fileID: 266652179}
   inputField: {fileID: 934110735}
+  currentHighScore: {fileID: 0}
   hasPlayedEvent:
     m_PersistentCalls:
       m_Calls:
@@ -3795,6 +3796,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  isFirstScene: 1
 --- !u!4 &1671349137
 Transform:
   m_ObjectHideFlags: 0

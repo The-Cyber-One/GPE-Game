@@ -6,16 +6,9 @@ using System;
 public class HighScoreManager : MonoBehaviour
 {
     [SerializeField]
-    private TextMeshProUGUI inputScore;
-    [SerializeField]
     private TMP_InputField inputName;
 
     public UnityEvent<string, int> sumbitScoreEvent;
-
-    private void Start()
-    {
-        inputScore.SetText("Score: " + ScoreData.Instance.Score.ToString());
-    }
 
     public void SumbitScore()
     {

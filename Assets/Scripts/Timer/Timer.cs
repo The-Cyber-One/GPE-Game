@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Dan.Main;
 
 public class Timer : MonoBehaviour
 {
@@ -58,6 +59,10 @@ public class Timer : MonoBehaviour
         {
             //switch to highscore screen and bring forth score
             ScoreManager.Instance.SaveIslandScore();
+            LeaderboardCreator.GetPersonalEntry(HighScore.publicLeaderboardKey, entry =>
+            {
+                LeaderboardCreator.UploadNewEntry(HighScore.publicLeaderboardKey, entry.Username, ScoreData.Instance.Score);
+            });
             SceneManager.LoadScene("Highscores");
         }
     }

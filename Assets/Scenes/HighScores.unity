@@ -1070,7 +1070,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1546191794, guid: bd0d3ad691ce2bb4b8dba30bf07f7261, type: 3}
+  m_Sprite: {fileID: 169767349, guid: bd0d3ad691ce2bb4b8dba30bf07f7261, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6540,6 +6540,7 @@ MonoBehaviour:
   errorText: {fileID: 1738324017}
   inputField: {fileID: 352269974}
   currentHighScore: {fileID: 1904307698}
+  inputScore: {fileID: 379605251}
   hasPlayedEvent:
     m_PersistentCalls:
       m_Calls:
@@ -6555,6 +6556,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  isFirstScene: 0
 --- !u!4 &1671349137
 Transform:
   m_ObjectHideFlags: 0
@@ -7453,7 +7455,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65fa968388a53ed44b3dd7086c416f65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputScore: {fileID: 379605251}
   inputName: {fileID: 352269974}
   sumbitScoreEvent:
     m_PersistentCalls:

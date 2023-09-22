@@ -7,6 +7,7 @@ using UnityEngine.Events;
 using System;
 using Dan.Models;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class HighScore : MonoBehaviour
 {
@@ -23,12 +24,15 @@ public class HighScore : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI currentHighScore;
     [SerializeField]
-    public UnityEvent<string> hasPlayedEvent;
-    private string publicLeaderboardKey = "a56edf94067a1ec620d28c02d6048cc682b8a0c0d26c7ed3d40a87c8b4922450";
+    private TextMeshProUGUI inputScore;
 
+    public UnityEvent<string> hasPlayedEvent;
+    public const string publicLeaderboardKey = "a56edf94067a1ec620d28c02d6048cc682b8a0c0d26c7ed3d40a87c8b4922450";
+    [SerializeField] bool isFirstScene = false;
     private void Start()
     {
-        GetLeaderBoard();
+        inputScore?.SetText("Score: " + ScoreData.Instance.Score.ToString());
+        Invoke(nameof(GetLeaderBoard), 0.5f);
     }
 
     public void GetLeaderBoard()
@@ -48,9 +52,20 @@ public class HighScore : MonoBehaviour
             if (entry.Date == 0)
                 return;
 
+            if (isFirstScene)
+            {
+                Scene scene = SceneManager.GetActiveScene();
+                if (scene.name == "AddNameScene")
+                {
+                    SceneManager.LoadScene("MainMenu");
+                }
+                return;
+            }
+
             hasPlayedEvent.Invoke(entry.Username);
             currentRankNamePlayer.text = $"#{entry.Rank} {entry.Username}";
             currentHighScore.text = entry.Score.ToString();
+
         });
     }
 
