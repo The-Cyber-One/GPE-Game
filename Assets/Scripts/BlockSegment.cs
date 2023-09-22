@@ -1,6 +1,7 @@
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
@@ -13,39 +14,36 @@ public class BlockSegment : Interactable
 
     [SerializeField] private BoxCollider boxCollider;
     [SerializeField] private Renderer[] renderers;
+    [SerializeField] private SortingGroup sortingGroup;
     [SerializeField] private Vector2Int size;
+    [SerializeField] private Animator animator;
 
-    private Animator animator;
-
-    [SerializeField] private GameObject waterOverlay, mistakeOverlay;
+    [SerializeField] private GameObject mistakeOverlay;
 
     private bool _usingMask = false;
 
     private void OnValidate()
     {
-        boxCollider = GetComponent<BoxCollider>();
-    }
-
-    private void Start()
-    {
-        waterOverlay.SetActive(false);
-        animator = GetComponentInChildren<Animator>();
+        if (boxCollider == null)
+            boxCollider = GetComponent<BoxCollider>();
+        if (animator == null)
+            animator = GetComponentInChildren<Animator>();
+        if (sortingGroup == null)
+            sortingGroup = GetComponentInChildren<SortingGroup>();
     }
 
     [ContextMenu(nameof(FindRenderers))]
     private void FindRenderers()
     {
         renderers = GetComponentsInChildren<Renderer>(true);
+        OnValidate();
         EditorUtility.SetDirty(this);
     }
 
     public override void StartDrag(Vector2 startPressPosition)
     {
         transform.localScale = Vector2.one;
-        foreach (var sprite in renderers)
-        {
-            sprite.sortingLayerName = "Dragging";
-        }
+        sortingGroup.sortingLayerName = "Dragging";
     }
 
     public override void Drag(Vector2 pressPosition)
@@ -58,7 +56,6 @@ public class BlockSegment : Interactable
             Vector2Int cellPosition = GridContainter.Instance.FitToGrid(position, size);
             transform.position = GridContainter.Instance.Grid.CellToWorld((Vector3Int)cellPosition);
             mistakeOverlay.SetActive(BlockPositions.Any(blockPosition => !GridContainter.Instance.GridSpaces(cellPosition.x + blockPosition.x, cellPosition.y + blockPosition.y)));
-            animator.SetBool("PlaceBlock", true);
         }
         else
         {
@@ -80,8 +77,8 @@ public class BlockSegment : Interactable
             UpdateMask(true);
             RemoveFromContainer();
             AddToContainer(GridContainter.Instance, GridContainter.Instance.Grid.CellToWorld((Vector3Int)cellPosition));
-            waterOverlay.SetActive(true);
             boxCollider.enabled = false;
+            animator.SetTrigger("PlaceBlock");
         }
         else
         {
@@ -92,10 +89,6 @@ public class BlockSegment : Interactable
         }
 
         mistakeOverlay.SetActive(false);
-        foreach (var sprite in renderers)
-        {
-            sprite.sortingLayerName = "Default";
-        }
     }
 
     private void UpdateMask(bool useMask)

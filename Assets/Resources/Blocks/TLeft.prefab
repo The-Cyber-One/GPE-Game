@@ -95,6 +95,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4906345828667219506}
   - component: {fileID: 8990744720022929380}
+  - component: {fileID: 2489456290325215566}
   m_Layer: 0
   m_Name: Visuals
   m_TagString: Untagged
@@ -140,6 +141,17 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!210 &2489456290325215566
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2456152693750403819}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &2547224650026397941
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,8 +495,9 @@ MonoBehaviour:
   - {fileID: 1202559993013404196}
   - {fileID: 7266178674011557597}
   - {fileID: 568235306148576986}
+  sortingGroup: {fileID: 2489456290325215566}
   size: {x: 2, y: 3}
-  waterOverlay: {fileID: 3989819216404205954}
+  animator: {fileID: 8990744720022929380}
   mistakeOverlay: {fileID: 1588040533151316742}
 --- !u!65 &4138472313339715685
 BoxCollider:

@@ -367,6 +367,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4994939292266314485}
+  - component: {fileID: 2284839638852182766}
+  - component: {fileID: 6549647228887728778}
   m_Layer: 6
   m_Name: Visuals
   m_TagString: Untagged
@@ -391,6 +393,38 @@ Transform:
   m_Father: {fileID: 6241659606211932039}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &2284839638852182766
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4533840377759810300}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0c54be90a53462c499ed3ab4703aebe4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!210 &6549647228887728778
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4533840377759810300}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &4585422613797177743
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,8 +484,9 @@ MonoBehaviour:
   - {fileID: 1202559993013404196}
   - {fileID: 7266178674011557597}
   - {fileID: 568235306148576986}
+  sortingGroup: {fileID: 6549647228887728778}
   size: {x: 2, y: 2}
-  waterOverlay: {fileID: 3989819216404205954}
+  animator: {fileID: 2284839638852182766}
   mistakeOverlay: {fileID: 1588040533151316742}
 --- !u!65 &4138472313339715685
 BoxCollider:
@@ -933,7 +968,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 1
-      m_TileSpriteIndex: 1
+      m_TileSpriteIndex: 2
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -954,10 +989,10 @@ Tilemap:
   m_TileSpriteArray:
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 1
-    m_Data: {fileID: -749244129, guid: bd0d3ad691ce2bb4b8dba30bf07f7261, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: -749244129, guid: bd0d3ad691ce2bb4b8dba30bf07f7261, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 842773702, guid: bd0d3ad691ce2bb4b8dba30bf07f7261, type: 3}
   - m_RefCount: 1
