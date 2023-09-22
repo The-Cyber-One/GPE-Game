@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,8 @@ public class OnSelectButton : MonoBehaviour
     [SerializeField]
     GameObject highScoreScreen;
 
+    float waitAmount = 0.25f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,35 +31,55 @@ public class OnSelectButton : MonoBehaviour
 
     public void OnPlayPressed()
     {
-        SceneManager.LoadScene("GameScene");
+        StartCoroutine(LoadScreen(waitAmount, ()=>SceneManager.LoadScene("GameScene")));
     }
+
+
+    private IEnumerator LoadScreen(float time, Action callback)
+    {
+        yield return new WaitForSeconds(time);
+        callback();
+    }
+
+
 
     public void OnTutorialPressed()
     {
-        mainMenuScreen.SetActive(false);
-        tutorialScreen.SetActive(true);
+        StartCoroutine(LoadScreen(waitAmount, () => {
+            mainMenuScreen.SetActive(false);
+            tutorialScreen.SetActive(true);
+        }));
     }
 
     public void TutorialToMM()
     {
-        mainMenuScreen.SetActive(true);
-        tutorialScreen.SetActive(false);
+        StartCoroutine(LoadScreen(waitAmount, () => {
+            mainMenuScreen.SetActive(true);
+            tutorialScreen.SetActive(false);
+        }));
+
     }
 
     public void OnHighscorePressed()
     {
-        mainMenuScreen.SetActive(false);
-        highScoreScreen.SetActive(true);
+        StartCoroutine(LoadScreen(waitAmount, () => {
+            mainMenuScreen.SetActive(false);
+            highScoreScreen.SetActive(true);
+        }));
+
     }
 
     public void HighscoreToMM()
     {
-        mainMenuScreen.SetActive(true);
-        highScoreScreen.SetActive(false);
+        StartCoroutine(LoadScreen(waitAmount, () => {
+            mainMenuScreen.SetActive(true);
+            highScoreScreen.SetActive(false);
+        }));
     }
 
     public void ToMainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        StartCoroutine(LoadScreen(waitAmount, () => SceneManager.LoadScene("MainMenu")));
+        
     }
 }
