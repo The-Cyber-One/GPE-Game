@@ -11,6 +11,9 @@ public class OnSelectButton : MonoBehaviour
     [SerializeField]
     GameObject tutorialScreen;
 
+    [SerializeField]
+    GameObject highScoreScreen;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,5 +41,17 @@ public class OnSelectButton : MonoBehaviour
     {
         mainMenuScreen.SetActive(true);
         tutorialScreen.SetActive(false);
+    }
+
+    public void OnHighscorePressed()
+    {
+        mainMenuScreen.SetActive(false);
+        highScoreScreen.SetActive(true);
+    }
+
+    public void HighscoreToMM()
+    {
+        mainMenuScreen.SetActive(true);
+        highScoreScreen.SetActive(false);
     }
 }
