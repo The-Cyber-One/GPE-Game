@@ -1,5 +1,17 @@
-Main Menu Music:
+Main Menu and Highscore Screen Music:
 https://pixabay.com/nl/sound-effects/waves-hitting-the-rocks-16680/ 
 
-Button sound:
+Button Menu sound:
 https://pixabay.com/nl/sound-effects/click-button-140881/
+
+Water splash sound:
+https://pixabay.com/nl/sound-effects/splash-by-blaukreuz-6261/
+
+Create Island Button sound:
+https://pixabay.com/nl/sound-effects/success-1-6297/
+
+Bonus Pickup Sound:
+https://pixabay.com/nl/sound-effects/success-bell-6776/
+
+Timer almost up Sound:
+https://pixabay.com/nl/sound-effects/a-kitchen-timer-55420/
