@@ -37,5 +37,6 @@ public class ScoreManager : Singleton<ScoreManager>
         _score = 0; 
         _multiplier = _bonusMultiplier = 0;
         UpdateUI();
+        ScoreData.Instance.Score = _totalScore;
     }
 }

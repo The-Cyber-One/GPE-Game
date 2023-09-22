@@ -4,6 +4,9 @@ using UnityEngine;
 using TMPro;
 using Dan.Main;
 using UnityEngine.Events;
+using System;
+using Dan.Models;
+using System.Linq;
 
 public class HighScore : MonoBehaviour
 {
@@ -14,6 +17,10 @@ public class HighScore : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI currentUserHighScore;
     [SerializeField]
+    private TextMeshProUGUI errorText;
+    [SerializeField]
+    private TMP_InputField inputField;
+    [SerializeField]
     public UnityEvent<string> hasPlayedEvent;
     private string publicLeaderboardKey = "a56edf94067a1ec620d28c02d6048cc682b8a0c0d26c7ed3d40a87c8b4922450";
 
@@ -21,39 +28,58 @@ public class HighScore : MonoBehaviour
     {
         GetLeaderBoard();
     }
+
     public void GetLeaderBoard()
     {
-        LeaderboardCreator.GetLeaderboard(publicLeaderboardKey, ((msg) =>
+        LeaderboardCreator.GetLeaderboard(publicLeaderboardKey, false, new LeaderboardSearchQuery() { Take = names.Count }, ((msg) =>
         {
             //Get HighScores
-            int loopLength = (msg.Length < names.Count) ? msg.Length : names.Count;
-            for (int i = 0; i < loopLength; i++)
+            for (int i = 0; i < msg.Length; i++)
             {
                 names[i].text = msg[i].Username;
                 scores[i].text = msg[i].Score.ToString();
             }
-            //Get this users high score
-            for (int i = 0; i < msg.Length; i++)
-            {
-                if (msg[i].IsMine())
-                {
-                    hasPlayedEvent.Invoke(msg[i].Username);
-                    currentUserHighScore.text = "Your Highscore:" + msg[i].Score.ToString();
-                }
-            }
         }));
+
+        LeaderboardCreator.GetPersonalEntry(publicLeaderboardKey, entry =>
+        {
+            if (entry.Date == 0)
+                return;
+
+            hasPlayedEvent.Invoke(entry.Username);
+            currentUserHighScore.text = "Your Highscore:" + entry.Score.ToString();
+        });
     }
 
     public void SetLeaderboardEntry(string username, int score)
     {
-        //Highscore entry
-        LeaderboardCreator.UploadNewEntry(publicLeaderboardKey, username, score, ((msg) =>
+        LeaderboardCreator.GetLeaderboard(publicLeaderboardKey, msg =>
         {
-            GetLeaderBoard();
-        }));
+            if (msg.Any(msg => msg.Username == username && !msg.IsMine()))
+            {
+                errorText.SetText("Name already taken");
+                inputField.text = "";
+                return;
+            }
+
+            //Highscore entry
+            LeaderboardCreator.UploadNewEntry(publicLeaderboardKey, username, score, ((msg) =>
+            {
+                GetLeaderBoard();
+            }));
+        });
+    }
+
+    [ContextMenu(nameof(ClearName))]
+    private void ClearName()
+    {
+        PlayerPrefs.DeleteKey("LEADERBOARD_CREATOR___LOCAL_GUID");
     }
 
     public void HasPlayedGame()
     {
+
     }
+
+
 }

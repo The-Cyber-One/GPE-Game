@@ -12,7 +12,7 @@ public class GridContainter : Singleton<GridContainter>, IContainer
     [SerializeField, Min(1)] private int minBonusWaitScore, maxBonusWaitScore;
     [SerializeField] private BonusMultiplier bonusPrefab;
 
-    private readonly Dictionary<Vector2Int, Interactable> _interactablePlaces = new();
+    private readonly List<Interactable> _interactables = new();
     private bool[,] _gridSpaces;
     private float _gridScaleMin;
     private Vector2 _previousPressPoint;
@@ -39,7 +39,7 @@ public class GridContainter : Singleton<GridContainter>, IContainer
     public void AddInteractable(Interactable interactable, Vector2 worldPosition)
     {
         Vector2Int cellPosition = GetCellPosition(worldPosition);
-        _interactablePlaces.Add(cellPosition, interactable);
+        _interactables.Add(interactable);
 
         switch (interactable)
         {
@@ -108,7 +108,11 @@ public class GridContainter : Singleton<GridContainter>, IContainer
     {
         ScoreManager.Instance.SaveIslandScore();
         SetupGridSpaces();
-        //_interactablePlaces
+        foreach (var interactable in _interactables)
+        {
+            Destroy(interactable.gameObject);
+        }
+        _interactables.Clear();
     }
 
     private int GetFilledSpaceAmount()

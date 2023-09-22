@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour
 {
@@ -46,6 +47,8 @@ public class Timer : MonoBehaviour
         else
         {
             //switch to highscore screen and bring forth score
+            ScoreManager.Instance.SaveIslandScore();
+            SceneManager.LoadScene("Highscores");
         }
     }
     private void SetTime()

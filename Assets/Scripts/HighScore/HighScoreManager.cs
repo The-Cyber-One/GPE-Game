@@ -12,9 +12,14 @@ public class HighScoreManager : MonoBehaviour
 
     public UnityEvent<string, int> sumbitScoreEvent;
 
+    private void Start()
+    {
+        inputScore.SetText("Score: " + ScoreData.Instance.Score.ToString());
+    }
+
     public void SumbitScore()
     {
-        sumbitScoreEvent.Invoke(inputName.text, int.Parse(removeWord(inputScore.text, "Score:")));
+        sumbitScoreEvent.Invoke(inputName.text, ScoreData.Instance.Score);
     }
     public void HasPlayedLogic(string username)
     {
