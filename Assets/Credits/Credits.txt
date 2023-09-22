@@ -12,3 +12,6 @@ https://pixabay.com/nl/sound-effects/success-1-6297/
 
 Bonus Pickup Sound:
 https://pixabay.com/nl/sound-effects/success-bell-6776/
+
+Timer almost up Sound:
+https://pixabay.com/nl/sound-effects/a-kitchen-timer-55420/
