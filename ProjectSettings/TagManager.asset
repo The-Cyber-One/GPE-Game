@@ -44,6 +44,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Dragging
+    uniqueID: 3249691961
+    locked: 0
   - name: Foreground
     uniqueID: 3091752673
     locked: 0

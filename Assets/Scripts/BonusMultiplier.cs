@@ -10,7 +10,7 @@ public class BonusMultiplier : MonoBehaviour
 
     private float _timer;
 
-    public Vector2Int Position => new((int)transform.position.x, (int)transform.position.y);
+    public Vector2Int Position => new((int)transform.localPosition.x, (int)transform.localPosition.y);
 
     private IEnumerator Start()
     {
@@ -18,7 +18,7 @@ public class BonusMultiplier : MonoBehaviour
         {
             yield return null;
             _timer += Time.deltaTime;
-            slider.value = _timer / time;
+            slider.value = 1 - _timer / time;
         }
         Destroy(gameObject);
     }
