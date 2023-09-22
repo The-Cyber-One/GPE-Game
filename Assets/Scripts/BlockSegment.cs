@@ -35,6 +35,7 @@ public class BlockSegment : Interactable
             audioSource = GetComponent<AudioSource>();
     }
 
+#if UNITY_EDITOR
     [ContextMenu(nameof(FindRenderers))]
     private void FindRenderers()
     {
@@ -42,6 +43,7 @@ public class BlockSegment : Interactable
         OnValidate();
         EditorUtility.SetDirty(this);
     }
+#endif
 
     public override void StartDrag(Vector2 startPressPosition)
     {
