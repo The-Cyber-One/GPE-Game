@@ -15,11 +15,13 @@ public class HighScore : MonoBehaviour
     [SerializeField]
     private List<TextMeshProUGUI> scores;
     [SerializeField]
-    private TextMeshProUGUI currentUserHighScore;
+    private TextMeshProUGUI currentRankNamePlayer;
     [SerializeField]
     private TextMeshProUGUI errorText;
     [SerializeField]
     private TMP_InputField inputField;
+    [SerializeField]
+    TextMeshProUGUI currentHighScore;
     [SerializeField]
     public UnityEvent<string> hasPlayedEvent;
     private string publicLeaderboardKey = "a56edf94067a1ec620d28c02d6048cc682b8a0c0d26c7ed3d40a87c8b4922450";
@@ -36,7 +38,7 @@ public class HighScore : MonoBehaviour
             //Get HighScores
             for (int i = 0; i < msg.Length; i++)
             {
-                names[i].text = msg[i].Username;
+                names[i].text = "#" + msg[i].Rank + " " + msg[i].Username;
                 scores[i].text = msg[i].Score.ToString();
             }
         }));
@@ -47,7 +49,8 @@ public class HighScore : MonoBehaviour
                 return;
 
             hasPlayedEvent.Invoke(entry.Username);
-            currentUserHighScore.text = "Your Highscore:" + entry.Score.ToString();
+            currentRankNamePlayer.text = $"#{entry.Rank} {entry.Username}";
+            currentHighScore.text = entry.Score.ToString();
         });
     }
 
