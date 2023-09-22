@@ -1,5 +1,62 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1977475327342628662
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4794996218782195858}
+  - component: {fileID: 1531737673762225842}
+  m_Layer: 0
+  m_Name: Visuals
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4794996218782195858
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977475327342628662}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7263949223902552507}
+  - {fileID: 8605393769997917127}
+  - {fileID: 1325254281340388362}
+  - {fileID: 4869328770726274688}
+  m_Father: {fileID: 6359938530284799442}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1531737673762225842
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977475327342628662}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0c54be90a53462c499ed3ab4703aebe4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3068418818607598159
 GameObject:
   m_ObjectHideFlags: 0
@@ -29,8 +86,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6359938530284799442}
-  m_RootOrder: 3
+  m_Father: {fileID: 4794996218782195858}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6788761626041472896
 SpriteRenderer:
@@ -115,8 +172,8 @@ Transform:
   m_Children:
   - {fileID: 4359326916961837304}
   - {fileID: 1869248344529430413}
-  m_Father: {fileID: 6359938530284799442}
-  m_RootOrder: 1
+  m_Father: {fileID: 4794996218782195858}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!156049354 &3246154054680105582
 Grid:
@@ -160,10 +217,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4869328770726274688}
-  - {fileID: 1325254281340388362}
-  - {fileID: 7263949223902552507}
-  - {fileID: 8605393769997917127}
+  - {fileID: 4794996218782195858}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -186,6 +240,7 @@ MonoBehaviour:
   - {x: 0, y: 1}
   - {x: 0, y: 2}
   <PointAmount>k__BackingField: 5
+  boxCollider: {fileID: 4013569931407755824}
   renderers:
   - {fileID: 6924223394400219573}
   - {fileID: 1776480628609367905}
@@ -1042,8 +1097,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6359938530284799442}
-  m_RootOrder: 2
+  m_Father: {fileID: 4794996218782195858}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1802590985128756051
 SpriteRenderer:
@@ -1127,8 +1182,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4403529815912776872}
-  m_Father: {fileID: 6359938530284799442}
-  m_RootOrder: 0
+  m_Father: {fileID: 4794996218782195858}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6924223394400219573
 SpriteRenderer:
