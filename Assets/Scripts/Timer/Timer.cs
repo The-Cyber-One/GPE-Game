@@ -23,6 +23,11 @@ public class Timer : MonoBehaviour
     [SerializeField]
     Slider slider;
 
+    [SerializeField]
+     AudioSource timerSound;
+
+    bool audioIsOn = false;
+
 
     private void Start()
     {
@@ -34,6 +39,11 @@ public class Timer : MonoBehaviour
     {
         RunTime();
         TransitionColor();
+        if (!audioIsOn && currentTime < setTime/4)
+        {
+            timerSound.Play();
+            audioIsOn = true;
+        }
     }
     private void RunTime()
     {
