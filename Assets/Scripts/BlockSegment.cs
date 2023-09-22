@@ -13,6 +13,7 @@ public class BlockSegment : Interactable
     public int PointAmount { private set; get; }
 
     [SerializeField] private BoxCollider boxCollider;
+    [SerializeField] private AudioSource audioSource;
     [SerializeField] private Renderer[] renderers;
     [SerializeField] private SortingGroup sortingGroup;
     [SerializeField] private Vector2Int size;
@@ -30,6 +31,8 @@ public class BlockSegment : Interactable
             animator = GetComponentInChildren<Animator>();
         if (sortingGroup == null)
             sortingGroup = GetComponentInChildren<SortingGroup>();
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
     }
 
     [ContextMenu(nameof(FindRenderers))]
@@ -79,6 +82,7 @@ public class BlockSegment : Interactable
             AddToContainer(GridContainter.Instance, GridContainter.Instance.Grid.CellToWorld((Vector3Int)cellPosition));
             boxCollider.enabled = false;
             animator.SetTrigger("PlaceBlock");
+            audioSource.Play();
         }
         else
         {

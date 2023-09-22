@@ -5,13 +5,21 @@ public class ScoreManager : Singleton<ScoreManager>
 {
     [SerializeField] private float maxMultiplier = 5f, multiplierBonusAmount = 4f;
     [SerializeField] private TMP_Text scoreText, multiplierText, islandScoreText, totalScoreText;
+    [SerializeField] private AudioSource bonusAudio;
 
     private int _score = 0, _totalScore = 0;
     private float _multiplier = 0, _bonusMultiplier = 0;
 
+    private void OnValidate()
+    {
+        if (bonusAudio ==null)
+            bonusAudio = GetComponent<AudioSource>();
+    }
+
     public void IncreaseBonus()
     {
         _bonusMultiplier += multiplierBonusAmount;
+        bonusAudio.Play();
     }
 
     public void IncreaseScore(int amount, float filledPercentage)
