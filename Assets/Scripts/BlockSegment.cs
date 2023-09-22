@@ -1,30 +1,38 @@
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.Tilemaps;
 
 public class BlockSegment : Interactable
 {
     [FormerlySerializedAs("blockPositions")] public Vector2Int[] BlockPositions;
-    [field:SerializeField]
+    [field: SerializeField]
     public int PointAmount { private set; get; }
 
-    [SerializeField] private SpriteRenderer[] spriteRenderers;
+    [SerializeField] private Renderer[] renderers;
     [SerializeField] private Vector2Int size;
 
     [SerializeField] private GameObject waterOverlay, mistakeOverlay;
 
     private bool _usingMask = false;
 
-    [ContextMenu(nameof(FindSprites))]
-    private void FindSprites()
+    private void Start()
     {
-        spriteRenderers = GetComponentsInChildren<SpriteRenderer>(true);
+        waterOverlay.SetActive(false);
+    }
+
+    [ContextMenu(nameof(FindRenderers))]
+    private void FindRenderers()
+    {
+        renderers = GetComponentsInChildren<Renderer>(true);
+        EditorUtility.SetDirty(this);
     }
 
     public override void StartDrag(Vector2 startPressPosition)
     {
         transform.localScale = Vector2.one;
-        foreach (var sprite in spriteRenderers)
+        foreach (var sprite in renderers)
         {
             sprite.sortingLayerName = "Foreground";
         }
@@ -62,7 +70,8 @@ public class BlockSegment : Interactable
             RemoveFromContainer();
             AddToContainer(GridContainter.Instance, GridContainter.Instance.Grid.CellToWorld((Vector3Int)cellPosition));
             waterOverlay.SetActive(true);
-        }        else
+        }
+        else
         {
             // Return segment to options
             UpdateMask(false);
@@ -70,7 +79,8 @@ public class BlockSegment : Interactable
             transform.localScale = BlockSpawnManager.Instance.spawnSize;
         }
 
-        foreach (var sprite in spriteRenderers)
+        mistakeOverlay.SetActive(false);
+        foreach (var sprite in renderers)
         {
             sprite.sortingLayerName = "Default";
         }
@@ -82,9 +92,17 @@ public class BlockSegment : Interactable
             return;
 
         _usingMask = useMask;
-        foreach (var sprite in spriteRenderers)
+        foreach (var sprite in renderers)
         {
-            sprite.maskInteraction = useMask ? SpriteMaskInteraction.VisibleInsideMask : SpriteMaskInteraction.None;
+            switch (sprite)
+            {
+                case TilemapRenderer tilemapRenderer:
+                    tilemapRenderer.maskInteraction = useMask ? SpriteMaskInteraction.VisibleInsideMask : SpriteMaskInteraction.None;
+                    break;
+                case SpriteRenderer spriteRenderer:
+                    spriteRenderer.maskInteraction = useMask ? SpriteMaskInteraction.VisibleInsideMask : SpriteMaskInteraction.None;
+                    break;
+            }
         }
     }
 }

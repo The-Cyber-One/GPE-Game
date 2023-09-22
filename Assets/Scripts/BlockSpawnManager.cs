@@ -36,7 +36,7 @@ public class BlockSpawnManager : Singleton<BlockSpawnManager>, IContainer
 
     void SpawnBlock(Vector2 spawn)
     {
-        GameObject newBlock = Instantiate(possibleBlocks[Random.Range(0, possibleBlocks.Length - 1)]);
+        GameObject newBlock = Instantiate(possibleBlocks[Random.Range(0, possibleBlocks.Length)]);
         newBlock.GetComponent<BlockSegment>().AddToContainer(this, spawn);
 
     }

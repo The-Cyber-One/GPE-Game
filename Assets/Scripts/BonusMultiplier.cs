@@ -18,7 +18,7 @@ public class BonusMultiplier : MonoBehaviour
         {
             yield return null;
             _timer += Time.deltaTime;
-            slider.value = _timer / time;
+            slider.value = 1 - _timer / time;
         }
         Destroy(gameObject);
     }
