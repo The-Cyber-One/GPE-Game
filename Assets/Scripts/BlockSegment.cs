@@ -4,18 +4,25 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
+[RequireComponent(typeof(BoxCollider))]
 public class BlockSegment : Interactable
 {
     [FormerlySerializedAs("blockPositions")] public Vector2Int[] BlockPositions;
     [field: SerializeField]
     public int PointAmount { private set; get; }
 
+    [SerializeField] private BoxCollider boxCollider;
     [SerializeField] private Renderer[] renderers;
     [SerializeField] private Vector2Int size;
 
     [SerializeField] private GameObject waterOverlay, mistakeOverlay;
 
     private bool _usingMask = false;
+
+    private void OnValidate()
+    {
+        boxCollider = GetComponent<BoxCollider>();
+    }
 
     private void Start()
     {
@@ -34,7 +41,7 @@ public class BlockSegment : Interactable
         transform.localScale = Vector2.one;
         foreach (var sprite in renderers)
         {
-            sprite.sortingLayerName = "Foreground";
+            sprite.sortingLayerName = "Dragging";
         }
     }
 
@@ -70,6 +77,7 @@ public class BlockSegment : Interactable
             RemoveFromContainer();
             AddToContainer(GridContainter.Instance, GridContainter.Instance.Grid.CellToWorld((Vector3Int)cellPosition));
             waterOverlay.SetActive(true);
+            boxCollider.enabled = false;
         }
         else
         {

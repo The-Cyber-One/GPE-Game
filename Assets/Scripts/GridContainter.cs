@@ -39,6 +39,8 @@ public class GridContainter : Singleton<GridContainter>, IContainer
     public void AddInteractable(Interactable interactable, Vector2 worldPosition)
     {
         Vector2Int cellPosition = GetCellPosition(worldPosition);
+        _interactablePlaces.Add(cellPosition, interactable);
+
         switch (interactable)
         {
             case BlockSegment blockSegment:
@@ -83,9 +85,7 @@ public class GridContainter : Singleton<GridContainter>, IContainer
 
     public void RemoveInteractable(Interactable interactable)
     {
-        _interactablePlaces.Remove(GetCellPosition(interactable.transform.position));
-        interactable.transform.SetParent(null);
-        interactable.transform.localScale = Vector3.one;
+
     }
 
     [ContextMenu(nameof(SetupGridSpaces))]
@@ -102,6 +102,13 @@ public class GridContainter : Singleton<GridContainter>, IContainer
                 _gridSpaces[x, y] = true;
             }
         }
+    }
+
+    public void CreateIsland()
+    {
+        ScoreManager.Instance.SaveIslandScore();
+        SetupGridSpaces();
+        //_interactablePlaces
     }
 
     private int GetFilledSpaceAmount()

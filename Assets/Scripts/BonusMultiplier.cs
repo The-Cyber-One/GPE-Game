@@ -10,7 +10,7 @@ public class BonusMultiplier : MonoBehaviour
 
     private float _timer;
 
-    public Vector2Int Position => new((int)transform.position.x, (int)transform.position.y);
+    public Vector2Int Position => new((int)transform.localPosition.x, (int)transform.localPosition.y);
 
     private IEnumerator Start()
     {
