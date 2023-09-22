@@ -1713,8 +1713,8 @@ MonoBehaviour:
   BoxCollider: {fileID: 836768375}
   GridMin: {x: 0, y: 0}
   GridMax: {x: 0, y: 0}
-  minBonusWaitScore: 2
-  maxBonusWaitScore: 2
+  minBonusWaitScore: 6
+  maxBonusWaitScore: 13
   bonusPrefab: {fileID: 4461159349471525645, guid: 2e71ca8a89efb2a4da998d66a510e973, type: 3}
 --- !u!114 &836768374
 MonoBehaviour:
