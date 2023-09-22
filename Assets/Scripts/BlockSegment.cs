@@ -42,7 +42,7 @@ public class BlockSegment : Interactable
 
     public override void StartDrag(Vector2 startPressPosition)
     {
-        transform.localScale = Vector2.one;
+        transform.localScale = GridContainter.Instance.transform.localScale;
         sortingGroup.sortingLayerName = "Dragging";
     }
 

@@ -50,7 +50,7 @@ MonoBehaviour:
   - {x: 0, y: 0}
   - {x: 1, y: 0}
   - {x: 2, y: 0}
-  <PointAmount>k__BackingField: 2
+  <PointAmount>k__BackingField: 1
   boxCollider: {fileID: 526222621654092731}
   renderers:
   - {fileID: 5360871097591893795}
