@@ -54,4 +54,9 @@ public class OnSelectButton : MonoBehaviour
         mainMenuScreen.SetActive(true);
         highScoreScreen.SetActive(false);
     }
+
+    public void ToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 }
