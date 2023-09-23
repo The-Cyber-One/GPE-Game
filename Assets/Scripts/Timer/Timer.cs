@@ -15,7 +15,7 @@ public class Timer : MonoBehaviour
     private float currentTime;
 
     private Color startColor;
-    private Color targetColor; 
+    private Color targetColor;
 
     [SerializeField]
     Image timerCircle;
@@ -25,7 +25,7 @@ public class Timer : MonoBehaviour
     Slider slider;
 
     [SerializeField]
-     AudioSource timerSound;
+    AudioSource timerSound;
 
     bool audioIsOn = false;
 
@@ -34,38 +34,10 @@ public class Timer : MonoBehaviour
     {
         startColor = Color.green;
         targetColor = Color.red;
-        SetTime();   
+        SetTime();
+        StartCoroutine(RunTime());
     }
-    private void Update()
-    {
-        RunTime();
-        TransitionColor();
-        if (!audioIsOn && currentTime < setTime/4)
-        {
-            timerSound.Play();
-            audioIsOn = true;
-        }
-    }
-    private void RunTime()
-    {
-        if (currentTime > 0)
-        {
-            currentTime -= Time.deltaTime;
-            timer.text = currentTime.ToString("0");
-            float ipValue = Mathf.Lerp(1, 0, elapsedTime/setTime);
-            slider.value = ipValue;
-        }
-        else
-        {
-            //switch to highscore screen and bring forth score
-            ScoreManager.Instance.SaveIslandScore();
-            LeaderboardCreator.GetPersonalEntry(HighScore.publicLeaderboardKey, entry =>
-            {
-                LeaderboardCreator.UploadNewEntry(HighScore.publicLeaderboardKey, entry.Username, ScoreData.Instance.Score);
-            });
-            SceneManager.LoadScene("Highscores");
-        }
-    }
+
     private void SetTime()
     {
         slider.value = 100;
@@ -73,10 +45,39 @@ public class Timer : MonoBehaviour
         currentTime = setTime;
     }
 
+    private IEnumerator RunTime()
+    {
+        while (currentTime > 0)
+        {
+            if (!audioIsOn && currentTime < setTime / 4)
+            {
+                timerSound.Play();
+                audioIsOn = true;
+            }
+            TransitionColor();
+
+            currentTime -= Time.deltaTime;
+            timer.text = currentTime.ToString("0");
+            float ipValue = Mathf.Lerp(1, 0, elapsedTime / setTime);
+            slider.value = ipValue;
+            yield return null;
+        }
+
+        //switch to highscore screen and bring forth score
+        ScoreManager.Instance.SaveIslandScore();
+        LeaderboardCreator.GetPersonalEntry(HighScore.publicLeaderboardKey, entry =>
+        {
+            LeaderboardCreator.UploadNewEntry(HighScore.publicLeaderboardKey, entry.Username, ScoreData.Instance.Score, value =>
+            {
+                SceneManager.LoadScene("Highscores");
+            });
+        });
+    }
+
     private void TransitionColor()
     {
         elapsedTime += Time.deltaTime;
-        Color currentColor = Color.Lerp(startColor, targetColor, elapsedTime/setTime);
+        Color currentColor = Color.Lerp(startColor, targetColor, elapsedTime / setTime);
         timerCircle.color = currentColor;
     }
 }

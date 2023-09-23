@@ -113,7 +113,8 @@ public class GridContainter : Singleton<GridContainter>, IContainer
         BoxCollider.size = (Vector2)GridSize;
 
         BlockSegment blocker = Resources.Load<BlockSegment>("Blocker");
-        for (int i = 0; i < (int)(blockerCurve.Evaluate(_islandCount / (float)maxBlockerIslandCount) * maxBlockerAmount); i++)
+        int blockerAmount = (int)(blockerCurve.Evaluate(_islandCount / (float)maxBlockerIslandCount) * maxBlockerAmount);
+        for (int i = 0; i < blockerAmount; i++)
         {
             Vector2 position = Grid.CellToWorld(new Vector3Int(Random.Range(GridMin.x, GridMax.x + 1), Random.Range(GridMin.y, GridMax.y + 1)));
             BlockSegment instance = Instantiate(blocker);

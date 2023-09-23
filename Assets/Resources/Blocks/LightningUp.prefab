@@ -381,7 +381,7 @@ GameObject:
   - component: {fileID: 4138472313339715685}
   - component: {fileID: 4021710436477923276}
   m_Layer: 6
-  m_Name: LightningFlipped
+  m_Name: LightningUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

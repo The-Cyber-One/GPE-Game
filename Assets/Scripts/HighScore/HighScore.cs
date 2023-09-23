@@ -1,13 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Dan.Main;
 using UnityEngine.Events;
-using System;
 using Dan.Models;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class HighScore : MonoBehaviour
 {
@@ -20,7 +19,7 @@ public class HighScore : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI errorText;
     [SerializeField]
-    private TMP_InputField inputField;
+    private InputField inputField;
     [SerializeField]
     TextMeshProUGUI currentHighScore;
     [SerializeField]
@@ -31,7 +30,10 @@ public class HighScore : MonoBehaviour
     [SerializeField] bool isFirstScene = false;
     private void Start()
     {
-        inputScore?.SetText("Score: " + ScoreData.Instance.Score.ToString());
+        if (inputScore != null)
+        {
+            inputScore.SetText("Score: " + ScoreData.Instance.Score.ToString());
+        }
         Invoke(nameof(GetLeaderBoard), 0.5f);
     }
 
