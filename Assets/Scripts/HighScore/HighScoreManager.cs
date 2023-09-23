@@ -1,21 +1,14 @@
 using UnityEngine;
-using TMPro;
 using UnityEngine.Events;
 using System;
+using UnityEngine.UI;
 
 public class HighScoreManager : MonoBehaviour
 {
     [SerializeField]
-    private TextMeshProUGUI inputScore;
-    [SerializeField]
-    private TMP_InputField inputName;
+    private InputField inputName;
 
     public UnityEvent<string, int> sumbitScoreEvent;
-
-    private void Start()
-    {
-        inputScore.SetText("Score: " + ScoreData.Instance.Score.ToString());
-    }
 
     public void SumbitScore()
     {
@@ -23,6 +16,8 @@ public class HighScoreManager : MonoBehaviour
     }
     public void HasPlayedLogic(string username)
     {
+        if (inputName == null)
+            return;
         inputName.interactable = false;
         inputName.text = username;
     }
