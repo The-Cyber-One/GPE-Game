@@ -464,6 +464,7 @@ GameObject:
   - component: {fileID: 4994939292266314485}
   - component: {fileID: 7924342373479787592}
   - component: {fileID: 3539710395465901839}
+  - component: {fileID: 1605673968576102509}
   m_Layer: 6
   m_Name: Visuals
   m_TagString: Untagged
@@ -522,6 +523,49 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!114 &1605673968576102509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4533840377759810300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4670bc3bb8643614ea797f6ec50939f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &4573713099011845747
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7640348951319178464}
+  m_Layer: 6
+  m_Name: Grab point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7640348951319178464
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4573713099011845747}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6241659606211932039}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4585422613797177743
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,6 +599,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4994939292266314485}
+  - {fileID: 7640348951319178464}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7854029185321721935
@@ -576,6 +621,7 @@ MonoBehaviour:
   - {x: 2, y: 1}
   <PointAmount>k__BackingField: 2
   Animator: {fileID: 7924342373479787592}
+  grabPosition: {fileID: 7640348951319178464}
   boxCollider: {fileID: 4138472313339715685}
   audioSource: {fileID: -6267758516263015230}
   renderers:

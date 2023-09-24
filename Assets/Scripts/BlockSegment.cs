@@ -14,6 +14,7 @@ public class BlockSegment : Interactable
     public int PointAmount { private set; get; }
     public Animator Animator;
 
+    [SerializeField] private Transform grabPosition;
     [SerializeField] private BoxCollider boxCollider;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private Renderer[] renderers;
@@ -30,11 +31,13 @@ public class BlockSegment : Interactable
 
     private void OnValidate()
     {
-        if(pointUIText != null)
+        if (pointUIText != null)
         {
             pointUIText.text = PointAmount.ToString();
         }
 
+        if (grabPosition == null)
+            grabPosition = transform;
         if (boxCollider == null)
             boxCollider = GetComponent<BoxCollider>();
         if (Animator == null)
@@ -63,12 +66,12 @@ public class BlockSegment : Interactable
 
     public override void Drag(Vector2 pressPosition)
     {
-        Vector2 position = pressPosition + new Vector2(0.5f, 0.5f);
+        Vector2 position = pressPosition - (Vector2)grabPosition.localPosition;
         if (CameraManager.Instance.TryHitContainer(out _))
         {
             UpdateMask(true);
 
-            Vector2Int cellPosition = GridContainter.Instance.FitToGrid(position, size);
+            Vector2Int cellPosition = GridContainter.Instance.FitToGrid(position + new Vector2(0.5f, 0.5f), size);
             transform.position = GridContainter.Instance.Grid.CellToWorld((Vector3Int)cellPosition);
             mistakeOverlay.SetActive(BlockPositions.Any(blockPosition => !GridContainter.Instance.GridSpaces(cellPosition.x + blockPosition.x, cellPosition.y + blockPosition.y)));
         }
@@ -76,13 +79,13 @@ public class BlockSegment : Interactable
         {
             UpdateMask(false);
             mistakeOverlay.SetActive(false);
-            transform.position = pressPosition;
+            transform.position = position;
         }
     }
 
     public override void StopDrag(Vector2 pressPosition)
     {
-        Vector2 position = pressPosition + new Vector2(0.5f, 0.5f);
+        Vector2 position = pressPosition + new Vector2(0.5f, 0.5f) - (Vector2)grabPosition.localPosition;
         Vector2Int cellPosition = GridContainter.Instance.FitToGrid(position, size);
 
         // Check each collider with grid
@@ -96,11 +99,10 @@ public class BlockSegment : Interactable
             Animator.SetTrigger("PlaceBlock");
             audioSource.Play();
 
-            if(pointUI != null)
+            if (pointUI != null)
             {
                 pointUI.SetActive(false);
             }
-
         }
         else
         {
@@ -108,8 +110,6 @@ public class BlockSegment : Interactable
             UpdateMask(false);
             transform.position = BlockSpawnManager.Instance.blockAndSpawn[this];
             transform.localScale = BlockSpawnManager.Instance.spawnSize;
-
-
         }
 
         mistakeOverlay.SetActive(false);

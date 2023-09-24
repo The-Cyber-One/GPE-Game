@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4794996218782195858}
   - component: {fileID: 1531737673762225842}
   - component: {fileID: 5839155627062312000}
+  - component: {fileID: 6449941723821288665}
   m_Layer: 0
   m_Name: Visuals
   m_TagString: Untagged
@@ -71,6 +72,18 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!114 &6449941723821288665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977475327342628662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4670bc3bb8643614ea797f6ec50939f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3068418818607598159
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,6 +247,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4794996218782195858}
+  - {fileID: 3904927638870110715}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7071429716489423386
@@ -256,6 +270,7 @@ MonoBehaviour:
   - {x: 0, y: 2}
   <PointAmount>k__BackingField: 5
   Animator: {fileID: 1531737673762225842}
+  grabPosition: {fileID: 3904927638870110715}
   boxCollider: {fileID: 4013569931407755824}
   audioSource: {fileID: -7732836399266476855}
   renderers:
@@ -1444,6 +1459,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &9047160931133046928
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3904927638870110715}
+  m_Layer: 6
+  m_Name: Grab point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3904927638870110715
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9047160931133046928}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6359938530284799442}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3141709145997723655
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1495,18 +1541,6 @@ PrefabInstance:
     - target: {fileID: 3651098406367062760, guid: f26dd95868ed6ea44af1d8325672cd1a, type: 3}
       propertyPath: m_Name
       value: PointUIDessertVariant
-      objectReference: {fileID: 0}
-    - target: {fileID: 6997196642232877205, guid: f26dd95868ed6ea44af1d8325672cd1a, type: 3}
-      propertyPath: m_Color.b
-      value: 0.23137257
-      objectReference: {fileID: 0}
-    - target: {fileID: 6997196642232877205, guid: f26dd95868ed6ea44af1d8325672cd1a, type: 3}
-      propertyPath: m_Color.g
-      value: 0.6901961
-      objectReference: {fileID: 0}
-    - target: {fileID: 6997196642232877205, guid: f26dd95868ed6ea44af1d8325672cd1a, type: 3}
-      propertyPath: m_Color.r
-      value: 0.9843138
       objectReference: {fileID: 0}
     - target: {fileID: 7975130491081583250, guid: f26dd95868ed6ea44af1d8325672cd1a, type: 3}
       propertyPath: m_text

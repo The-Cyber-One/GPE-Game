@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -13,6 +14,7 @@ public class GridContainter : Singleton<GridContainter>, IContainer
     [SerializeField] private BonusMultiplier bonusPrefab;
     [SerializeField] private Transform mask;
 
+    [SerializeField] private float createIslandDelay;
     [SerializeField] private AnimationCurve blockerCurve;
     [SerializeField] private int maxBlockerAmount, maxBlockerIslandCount;
 
@@ -127,9 +129,9 @@ public class GridContainter : Singleton<GridContainter>, IContainer
     {
         _islandCount++;
         ScoreManager.Instance.SaveIslandScore();
-        foreach (var interactable in _interactables)
+        for (int i = 0; i < _interactables.Count; i++)
         {
-            Destroy(interactable.gameObject);
+            StartCoroutine(DelayedTrigger(i * createIslandDelay, (BlockSegment)_interactables[i]));
         }
         _interactables.Clear();
         if (_bonusInstance != null)
@@ -137,6 +139,12 @@ public class GridContainter : Singleton<GridContainter>, IContainer
             Destroy(_bonusInstance.gameObject);
         }
         SetupGridSpaces();
+    }
+
+    private IEnumerator DelayedTrigger(float time, BlockSegment blockSegment)
+    {
+        yield return new WaitForSeconds(time);
+        blockSegment.Animator.SetTrigger("CreateIsland");
     }
 
     private int GetFilledSpaceAmount()

@@ -1400,7 +1400,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27.7
+  m_fontSize: 27.75
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1555,7 +1555,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36.65
+  m_fontSize: 36.7
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1963,7 +1963,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -4, z: 0}
-  m_LocalScale: {x: 5.625, y: 2, z: 0}
+  m_LocalScale: {x: 5.624179, y: 2, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 622122288}
@@ -2056,6 +2056,7 @@ MonoBehaviour:
   maxBonusWaitScore: 13
   bonusPrefab: {fileID: 4461159349471525645, guid: 2e71ca8a89efb2a4da998d66a510e973, type: 3}
   mask: {fileID: 1117350558}
+  createIslandDelay: 0.1
   blockerCurve:
     serializedVersion: 2
     m_Curve:
@@ -3377,7 +3378,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27.7
+  m_fontSize: 27.75
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3576,7 +3577,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27.7
+  m_fontSize: 27.75
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3751,7 +3752,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36.65
+  m_fontSize: 36.7
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4182,7 +4183,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36.65
+  m_fontSize: 36.7
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
