@@ -19,6 +19,7 @@ public class BlockSegment : Interactable
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private Renderer[] renderers;
     [SerializeField] private SortingGroup sortingGroup;
+    [SerializeField] private Canvas pointCanvas;
     [SerializeField] private Vector2Int size;
 
     [SerializeField] private GameObject mistakeOverlay;
@@ -44,6 +45,8 @@ public class BlockSegment : Interactable
             Animator = GetComponentInChildren<Animator>();
         if (sortingGroup == null)
             sortingGroup = GetComponentInChildren<SortingGroup>();
+        if (pointCanvas == null)
+            pointCanvas = GetComponentInChildren<Canvas>();
         if (audioSource == null)
             audioSource = GetComponent<AudioSource>();
     }
@@ -52,7 +55,7 @@ public class BlockSegment : Interactable
     [ContextMenu(nameof(FindRenderers))]
     private void FindRenderers()
     {
-        renderers = GetComponentsInChildren<Renderer>(true);
+        renderers = GetComponentsInChildren<Renderer>(true).Where(renderer => !renderer.name.StartsWith("PointUI")).ToArray();
         OnValidate();
         EditorUtility.SetDirty(this);
     }
@@ -61,7 +64,7 @@ public class BlockSegment : Interactable
     public override void StartDrag(Vector2 startPressPosition)
     {
         transform.localScale = GridContainter.Instance.transform.localScale;
-        sortingGroup.sortingLayerName = "Dragging";
+        pointCanvas.sortingLayerName = sortingGroup.sortingLayerName = "Dragging";
     }
 
     public override void Drag(Vector2 pressPosition)

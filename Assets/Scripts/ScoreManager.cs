@@ -1,5 +1,4 @@
-using Dan.Main;
-using System.Linq;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -10,36 +9,44 @@ public class ScoreManager : Singleton<ScoreManager>
     [SerializeField] private AudioSource bonusAudio;
     [SerializeField] private TMP_Text addedScoreTotal;
     [SerializeField] private Animator addedScoreTotalAnimation;
-    int scoreToAddTotal = 0;
-    int scoreToAddTotalIsland = 0;
-    int totalIsland = 0;
+    [SerializeField] private float animationTime = 0.4f;
+    int _uiTotalScore = 0;
+    int _uiIslandScore = 0;
+    int _totalScore = 0;
 
-    private int _score = 0, _totalScore = 0;
+    private int _score = 0, _islandScore = 0;
     private float _multiplier = 0, _bonusMultiplier = 0;
 
     private void OnValidate()
     {
-        if (bonusAudio ==null)
+        if (bonusAudio == null)
             bonusAudio = GetComponent<AudioSource>();
     }
 
-    private void FixedUpdate()
+    private IEnumerator Start()
     {
-
-        if (scoreToAddTotal > 0)
+        while (Application.isPlaying)
         {
-            _totalScore++;
-            scoreToAddTotal--;
-            UpdateUI();
-        }
+            bool updateUI = false;
+            if (_totalScore > _uiTotalScore)
+            {
+                _uiTotalScore++;
+                updateUI = true;
+            }
 
-        if(scoreToAddTotalIsland > totalIsland)
-        {
-            totalIsland++;
-            //scoreToAddTotalIsland--;
-            UpdateUI();
-        }
+            if (_islandScore > _uiIslandScore)
+            {
+                _uiIslandScore++;
+                updateUI = true;
+            }
 
+            if (updateUI)
+            {
+                UpdateUI();
+            }
+
+            yield return new WaitForSeconds(animationTime);
+        }
     }
     public void IncreaseBonus()
     {
@@ -50,9 +57,8 @@ public class ScoreManager : Singleton<ScoreManager>
     public void IncreaseScore(int amount, float filledPercentage)
     {
         _score += amount;
-        scoreToAddTotalIsland = Mathf.FloorToInt(_score * _multiplier);
         _multiplier = maxMultiplier * filledPercentage + _bonusMultiplier;
-        UpdateUI();
+        _islandScore = Mathf.FloorToInt(_score * _multiplier);
     }
 
     [ContextMenu(nameof(UpdateUI))]
@@ -60,22 +66,25 @@ public class ScoreManager : Singleton<ScoreManager>
     {
         scoreText.SetText(_score.ToString());
         multiplierText.SetText($"{_multiplier:0.0}x");
-        islandScoreText.SetText(Mathf.FloorToInt(totalIsland).ToString());
-        totalScoreText.SetText($"<b><color=#fbb03b>Total score</color></b>\n{_totalScore}");
-
-
+        islandScoreText.SetText(Mathf.FloorToInt(_uiIslandScore).ToString());
+        totalScoreText.SetText($"<b><color=#fbb03b>Total score</color></b>\n{_uiTotalScore}");
     }
 
     [ContextMenu(nameof(SaveIslandScore))]
     public void SaveIslandScore()
     {
-        scoreToAddTotal += Mathf.FloorToInt(_score * _multiplier);
+        _totalScore += _islandScore;
+
         addedScoreTotalAnimation.SetTrigger("ScoreAdded");
-        addedScoreTotal.text = scoreToAddTotal.ToString() + " +";
-        _score = 0;
-        totalIsland = 0;
-        _multiplier = _bonusMultiplier = 0;
-        UpdateUI();
+        addedScoreTotal.text = _islandScore.ToString() + " +";
+
         ScoreData.Instance.Score = _totalScore;
+
+        _score = 0;
+        _islandScore = 0;
+        _multiplier = 0;
+        _bonusMultiplier = 0;
+        _uiIslandScore = 0;
+        UpdateUI();
     }
 }
