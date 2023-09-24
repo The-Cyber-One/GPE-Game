@@ -1,4 +1,5 @@
 using System.Linq;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -21,10 +22,19 @@ public class BlockSegment : Interactable
 
     [SerializeField] private GameObject mistakeOverlay;
 
+    [SerializeField] private GameObject pointUI;
+    [SerializeField] private TMP_Text pointUIText;
+
+
     private bool _usingMask = false;
 
     private void OnValidate()
     {
+        if(pointUIText != null)
+        {
+            pointUIText.text = PointAmount.ToString();
+        }
+
         if (boxCollider == null)
             boxCollider = GetComponent<BoxCollider>();
         if (Animator == null)
@@ -85,6 +95,12 @@ public class BlockSegment : Interactable
             boxCollider.enabled = false;
             Animator.SetTrigger("PlaceBlock");
             audioSource.Play();
+
+            if(pointUI != null)
+            {
+                pointUI.SetActive(false);
+            }
+
         }
         else
         {
@@ -92,6 +108,8 @@ public class BlockSegment : Interactable
             UpdateMask(false);
             transform.position = BlockSpawnManager.Instance.blockAndSpawn[this];
             transform.localScale = BlockSpawnManager.Instance.spawnSize;
+
+
         }
 
         mistakeOverlay.SetActive(false);
