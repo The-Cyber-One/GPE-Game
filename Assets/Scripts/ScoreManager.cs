@@ -10,6 +10,7 @@ public class ScoreManager : Singleton<ScoreManager>
     [SerializeField] private AudioSource bonusAudio;
     [SerializeField] private AudioSource fullislandAudio;
     [SerializeField] private Animator animator;
+    [SerializeField] private int fillBonusPoints = 100;
 
     private int _score = 0, _totalScore = 0;
     private float _multiplier = 0, _bonusMultiplier = 0, _filledPercentage = 0;
@@ -46,10 +47,11 @@ public class ScoreManager : Singleton<ScoreManager>
     [ContextMenu(nameof(SaveIslandScore))]
     public void SaveIslandScore()
     {
-        if (_filledPercentage == 1)
+        if (_filledPercentage >= 1)
         {
             animator.SetTrigger("ShouldPlay");
             fullislandAudio.Play();
+            _score += fillBonusPoints;
         }
         _filledPercentage = 0;
         _totalScore += Mathf.FloorToInt(_score * _multiplier);
