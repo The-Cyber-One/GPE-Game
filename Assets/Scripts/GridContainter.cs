@@ -14,7 +14,7 @@ public class GridContainter : Singleton<GridContainter>, IContainer
     [SerializeField] private BonusMultiplier bonusPrefab;
     [SerializeField] private Transform mask;
 
-    [SerializeField] private float createIslandDelay;
+    [SerializeField] private float createIslandDelay = 0.1f;
     [SerializeField] private AnimationCurve blockerCurve;
     [SerializeField] private int maxBlockerAmount, maxBlockerIslandCount;
 

@@ -6,10 +6,11 @@ public class ScoreManager : Singleton<ScoreManager>
 {
     [SerializeField] private float maxMultiplier = 5f, multiplierBonusAmount = 4f;
     [SerializeField] private TMP_Text scoreText, multiplierText, islandScoreText, totalScoreText;
-    [SerializeField] private AudioSource bonusAudio;
+    [SerializeField] private AudioSource bonusAudio, fullislandAudio;
     [SerializeField] private TMP_Text addedScoreTotal;
-    [SerializeField] private Animator addedScoreTotalAnimation;
-    [SerializeField] private float animationTime = 0.4f;
+    [SerializeField] private Animator addedScoreTotalAnimation, droppedAnimator;
+    [SerializeField] private float animationTime = 0.01f;
+    [SerializeField] private int fillBonusPoints = 100;
     int _uiTotalScore = 0;
     int _uiIslandScore = 0;
     int _totalScore = 0;
@@ -59,6 +60,14 @@ public class ScoreManager : Singleton<ScoreManager>
         _score += amount;
         _multiplier = maxMultiplier * filledPercentage + _bonusMultiplier;
         _islandScore = Mathf.FloorToInt(_score * _multiplier);
+
+        if (filledPercentage >= 1)
+        {
+            droppedAnimator.SetTrigger("ShouldPlay");
+            fullislandAudio.Play();
+            _islandScore += fillBonusPoints;
+            GridContainter.Instance.CreateIsland();
+        }
     }
 
     [ContextMenu(nameof(UpdateUI))]
