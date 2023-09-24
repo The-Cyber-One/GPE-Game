@@ -25,6 +25,7 @@ public class GridContainter : Singleton<GridContainter>, IContainer
     private int _bonusCurrentWaitScore, _bonusWantedWaitScore;
     private BonusMultiplier _bonusInstance;
     private int _islandCount;
+    private int _blockerAmount;
 
     public bool GridSpaces(int x, int y)
     {
@@ -66,7 +67,7 @@ public class GridContainter : Singleton<GridContainter>, IContainer
                 }
 
                 // Add score
-                float filledPercentage = GetFilledSpaceAmount() / (float)_gridSpaces.Length;
+                float filledPercentage = (GetFilledSpaceAmount() - _blockerAmount) / (float)(_gridSpaces.Length - _blockerAmount);
                 ScoreManager.Instance.IncreaseScore(blockSegment.PointAmount, filledPercentage);
 
                 // Spawn bonus multiplier
@@ -115,8 +116,8 @@ public class GridContainter : Singleton<GridContainter>, IContainer
         BoxCollider.size = (Vector2)GridSize;
 
         BlockSegment blocker = Resources.Load<BlockSegment>("Blocker");
-        int blockerAmount = (int)(blockerCurve.Evaluate(_islandCount / (float)maxBlockerIslandCount) * maxBlockerAmount);
-        for (int i = 0; i < blockerAmount; i++)
+        _blockerAmount = (int)(blockerCurve.Evaluate(_islandCount / (float)maxBlockerIslandCount) * maxBlockerAmount);
+        for (int i = 0; i < _blockerAmount; i++)
         {
             Vector2 position = Grid.CellToWorld(new Vector3Int(Random.Range(GridMin.x, GridMax.x + 1), Random.Range(GridMin.y, GridMax.y + 1)));
             BlockSegment instance = Instantiate(blocker);

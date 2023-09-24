@@ -2055,7 +2055,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Grid: {fileID: 836768370}
-  GridSize: {x: 4, y: 4}
+  GridSize: {x: 5, y: 5}
   BoxCollider: {fileID: 836768375}
   GridMin: {x: 0, y: 0}
   GridMax: {x: 0, y: 0}
