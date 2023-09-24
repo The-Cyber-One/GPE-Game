@@ -69,9 +69,15 @@ public class Timer : MonoBehaviour
         {
             LeaderboardCreator.UploadNewEntry(HighScore.publicLeaderboardKey, entry.Username, ScoreData.Instance.Score, value =>
             {
-                SceneManager.LoadScene("Highscores");
+                StartCoroutine(LoadScene());
             });
         });
+    }
+
+    private IEnumerator LoadScene()
+    {
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene("Highscores");
     }
 
     private void TransitionColor()
