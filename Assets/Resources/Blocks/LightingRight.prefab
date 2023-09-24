@@ -607,7 +607,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5, y: 4, z: 1}
+  m_Size: {x: 4, y: 3, z: 1}
   m_Center: {x: 1, y: 0.5, z: 0}
 --- !u!82 &-6267758516263015230
 AudioSource:
@@ -967,7 +967,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 0
+      m_TileSpriteIndex: 2
       m_TileMatrixIndex: 0
       m_TileColorIndex: 1
       m_TileObjectToInstantiateIndex: 65535
@@ -994,12 +994,12 @@ Tilemap:
   - m_RefCount: 0
     m_Data: {fileID: 0}
   m_TileSpriteArray:
-  - m_RefCount: 1
-    m_Data: {fileID: 1658155291, guid: 7053474d79cd4f84f9b500a1ef1a69fa, type: 3}
-  - m_RefCount: 2
-    m_Data: {fileID: -1569271729, guid: 7053474d79cd4f84f9b500a1ef1a69fa, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 2
+    m_Data: {fileID: -1569271729, guid: 7053474d79cd4f84f9b500a1ef1a69fa, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 1658155291, guid: 7053474d79cd4f84f9b500a1ef1a69fa, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -1439124456, guid: 7053474d79cd4f84f9b500a1ef1a69fa, type: 3}
   m_TileMatrixArray:
