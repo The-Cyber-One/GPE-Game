@@ -2060,8 +2060,8 @@ Camera:
   m_GameObject: {fileID: 285301934}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.3647059, g: 0.8470589, b: 0.83921576, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.3647059, g: 0.8470589, b: 0.83921576, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -13449,6 +13449,76 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1928261998}
   m_CullTransparentMesh: 1
+--- !u!1 &1933321232
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1933321234}
+  - component: {fileID: 1933321233}
+  - component: {fileID: 1933321235}
+  m_Layer: 0
+  m_Name: UI Document
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1933321233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933321232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 9236e952c4f945e448a2f2fb888d0c27, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 0}
+  m_SortingOrder: 0
+--- !u!4 &1933321234
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933321232}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1933321235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933321232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f1efcd676dff404ebde1747732f365f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Document: {fileID: 1933321233}
+  StyleSheet: {fileID: 7433441132597879392, guid: 83c7c2d671b415441893493537b13d7b, type: 3}
+  titleSprite: {fileID: 21300000, guid: 1c91568e61fff344db707e64b10c8094, type: 3}
+  leftButtonSprite: {fileID: 661411239, guid: bd0d3ad691ce2bb4b8dba30bf07f7261, type: 3}
+  centerButtonSprite: {fileID: -1368679843, guid: bd0d3ad691ce2bb4b8dba30bf07f7261, type: 3}
+  rightButtonSprite: {fileID: 1128628538, guid: bd0d3ad691ce2bb4b8dba30bf07f7261, type: 3}
+  leftBottomButtonSprite: {fileID: 909737730, guid: bd0d3ad691ce2bb4b8dba30bf07f7261, type: 3}
+  centerBottomButtonSprite: {fileID: 1972904980, guid: bd0d3ad691ce2bb4b8dba30bf07f7261, type: 3}
+  rightBottomButtonSprite: {fileID: 665984886, guid: bd0d3ad691ce2bb4b8dba30bf07f7261, type: 3}
 --- !u!1 &1943580484
 GameObject:
   m_ObjectHideFlags: 0
@@ -15387,6 +15457,7 @@ SceneRoots:
   - {fileID: 285301937}
   - {fileID: 223415829}
   - {fileID: 1265602215}
+  - {fileID: 1933321234}
   - {fileID: 1671349137}
   - {fileID: 1087866434}
   - {fileID: 1451372320}

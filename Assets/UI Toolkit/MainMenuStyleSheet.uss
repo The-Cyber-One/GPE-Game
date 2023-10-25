@@ -1,0 +1,40 @@
+:root {
+    background-color: gray;
+    padding: 0px 10%;
+    justify-content: space-around;
+}
+
+.title-container {
+    padding-top: 66.6%;
+    position: relative;
+}
+
+.title {
+    background-color: red;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.menu-button .unity-text-element {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    font-size: 250%;
+    padding:0;
+    margin:0;
+    -unity-text-align: middle-center;
+}
+
+.menu-button .unity-button {
+    opacity: 0;
+}
+
+.menu-button-section {
+    flex-direction: row;
+    top: 0;
+    flex-shrink: 1;
+    justify-content: center;
+}
